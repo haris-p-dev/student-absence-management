@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: absence_db
+    environment:
+      POSTGRES_DB: absence_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "5432:5432"
+
+    volumes:  ..............
+
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    app:
+      build: .
+      container_name: absence_app
+
+      environment:
+        DB_HOST: db
+        DB_PORT: 5432
+        DB_NAME : appDB
+        DB_USER : ${DB_USER}
+        DB_PASSWORD: ${DB_PASSWORD}
+
+      depends_on:
+       db:
+          condition: service_healthy
+
+
+      ports:
+        - "8080:8080"
+
+      restart: on-failure
+
+      volumes:
+        postgres_data:x
