@@ -1,8 +1,8 @@
 package gr.techpro.absence.entity;
 
 
+import gr.techpro.absence.enums.SessionType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,9 +15,9 @@ public class SessionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)  // Lazy loads the obj
-    @JoinColumn(name="module_id",nullable = false)  // Where the FK is stored
-    private ModulesEntity moduleId;  //moduleEntity obj to many sessions
+    @ManyToOne(fetch = FetchType.LAZY)    // Lazy loads the obj
+    @JoinColumn(name="module_id",nullable = false)    // Where the FK is stored
+    private ModulesEntity module;    //moduleEntity obj to many sessions
 
     @Column(name="session_date", nullable = false)
     private LocalDate sessionDate;
@@ -25,14 +25,16 @@ public class SessionEntity {
     @Column(name="start_time", nullable = false)
     private LocalTime startTime;
 
-    @Column(name="end_time", unique = false)
+    @Column(name="end_time", nullable = false)
     private LocalTime endTime;
 
+    @Enumerated(EnumType.STRING) //stores enum's name at db
     @Column(name="session_type", length=20, nullable = false)
-    private String sessionType;
+    private SessionType sessionType;
 
-    @AssertTrue
-    @Column()
+    @Column(name="topic",length = 255)
     private String topic;
+
+
 
 }

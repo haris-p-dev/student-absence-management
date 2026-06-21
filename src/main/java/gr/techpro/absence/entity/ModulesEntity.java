@@ -28,7 +28,7 @@ public class ModulesEntity {
     @NotNull  // checks if null before persistence
     @Positive // checks if 0 or positive before persistence
     @Column(name="credits", nullable = false)
-    private int credits;
+    private Integer credits;
 
     @NotBlank
     @Column(name="semester", length = 20, nullable = false)

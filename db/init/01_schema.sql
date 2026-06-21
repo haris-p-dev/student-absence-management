@@ -5,8 +5,8 @@
 
 -- instructors
 CREATE TABLE IF NOT EXISTS instructor (
-                                          id          BIGSERIAL    PRIMARY KEY,
-                                          first_name  VARCHAR(100) NOT NULL,
+    id          BIGSERIAL    PRIMARY KEY,
+    first_name  VARCHAR(100) NOT NULL,
     last_name   VARCHAR(100) NOT NULL,
     email       VARCHAR(255) NOT NULL UNIQUE,
     created_at  TIMESTAMP    NOT NULL DEFAULT NOW()
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS instructor (
 
 -- modules
 CREATE TABLE IF NOT EXISTS module (
-                                      id             BIGSERIAL    PRIMARY KEY,
-                                      code           VARCHAR(20)  NOT NULL UNIQUE,
+    id             BIGSERIAL    PRIMARY KEY,
+    code           VARCHAR(20)  NOT NULL UNIQUE,
     title          VARCHAR(255) NOT NULL,
     credits        INT          NOT NULL CHECK (credits > 0),
     semester       VARCHAR(20)  NOT NULL,   -- FALL | SPRING | SUMMER
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS module (
 
 -- module–instructor assignments
 CREATE TABLE IF NOT EXISTS module_instructor (
-                                                 id             BIGSERIAL PRIMARY KEY,
-                                                 module_id      BIGINT NOT NULL REFERENCES module(id)     ON DELETE CASCADE,
+    id             BIGSERIAL PRIMARY KEY,
+    module_id      BIGINT NOT NULL REFERENCES module(id)     ON DELETE CASCADE,
     instructor_id  BIGINT NOT NULL REFERENCES instructor(id) ON DELETE CASCADE,
     role           VARCHAR(50) NOT NULL DEFAULT 'LEAD',      -- LEAD | ASSISTANT
     UNIQUE (module_id, instructor_id)
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS module_instructor (
 
 -- students
 CREATE TABLE IF NOT EXISTS student (
-                                       id               BIGSERIAL    PRIMARY KEY,
-                                       first_name       VARCHAR(100) NOT NULL,
+    id               BIGSERIAL    PRIMARY KEY,
+    first_name       VARCHAR(100) NOT NULL,
     last_name        VARCHAR(100) NOT NULL,
     email            VARCHAR(255) NOT NULL UNIQUE,
     student_number   VARCHAR(50)  NOT NULL UNIQUE,
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS student (
 
 -- enrollments (student <-> module)
 CREATE TABLE IF NOT EXISTS enrollment (
-                                          id           BIGSERIAL   PRIMARY KEY,
-                                          student_id   BIGINT      NOT NULL REFERENCES student(id) ON DELETE CASCADE,
+    id           BIGSERIAL   PRIMARY KEY,
+    student_id   BIGINT      NOT NULL REFERENCES student(id) ON DELETE CASCADE,
     module_id    BIGINT      NOT NULL REFERENCES module(id)  ON DELETE CASCADE,
     enrolled_at  DATE        NOT NULL DEFAULT CURRENT_DATE,
     status       VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',      -- ACTIVE | DROPPED | COMPLETED
@@ -61,14 +61,13 @@ CREATE TABLE IF NOT EXISTS session (
     start_time    TIME         NOT NULL,
     end_time      TIME         NOT NULL,
     session_type  VARCHAR(20)  NOT NULL DEFAULT 'LECTURE',   -- LECTURE | LAB | SEMINAR
-    topic         VARCHAR(255),
-    CHECK (end_time > start_time)
+    topic         VARCHAR(255), CHECK (end_time > start_time)
     );
 
 -- absences
 CREATE TABLE IF NOT EXISTS absence (
-                                       id             BIGSERIAL   PRIMARY KEY,
-                                       enrollment_id  BIGINT      NOT NULL REFERENCES enrollment(id) ON DELETE CASCADE,
+    id             BIGSERIAL   PRIMARY KEY,
+    enrollment_id  BIGINT      NOT NULL REFERENCES enrollment(id) ON DELETE CASCADE,
     session_id     BIGINT      NOT NULL REFERENCES session(id)    ON DELETE CASCADE,
     status         VARCHAR(20) NOT NULL DEFAULT 'ABSENT',    -- ABSENT | PRESENT | LATE
     justification  TEXT,
