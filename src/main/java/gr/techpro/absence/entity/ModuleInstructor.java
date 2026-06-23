@@ -3,11 +3,16 @@ package gr.techpro.absence.entity;
 
 import gr.techpro.absence.enums.InstructorRole;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
 @Table(name="module_instructor", uniqueConstraints ={
                                         @UniqueConstraint( columnNames = {
-                                                "module_id","instructor_id"})  })  //
+                                                "module_id","instructor_id"})  })   //compination of the 2 columns must be unique
 public class ModuleInstructor {
 
     @Id

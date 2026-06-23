@@ -3,10 +3,15 @@ package gr.techpro.absence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
 @Table(name="instructor")
 public class InstructorsEntity {
 

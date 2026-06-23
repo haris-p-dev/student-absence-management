@@ -4,10 +4,15 @@ package gr.techpro.absence.entity;
 import gr.techpro.absence.enums.EnrollmentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
 @Table(name="enrollment", uniqueConstraints = {
                                 @UniqueConstraint( columnNames = {       // Single Student enrollment per module
                                         "student_id", "module_id" })  })
