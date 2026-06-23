@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
 @Table(name="student")
-public class StudentsEntity {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +36,8 @@ public class StudentsEntity {
     @Column(name="student_number", length = 50, unique = true,nullable = false)
     private String studentNumber;
 
-    @Column(name="enrollment_date",insertable = false,nullable = false)
-    //insertable=false. Database manages the dates
+
+    @Column(name="enrollment_date",insertable = false,nullable = false) //insertable=false. Database manages the dates
     private LocalDate enrollDate;
 
     @Column(name="created_at",insertable = false,nullable = false)

@@ -21,11 +21,11 @@ public class ModuleInstructor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="module_id", nullable = false)
-    private ModulesEntity module;
+    private ModuleEntity module;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="instructor_id", nullable = false)
-    private InstructorsEntity instructor;
+    private InstructorEntity instructor;
 
     @Enumerated(EnumType.STRING)
     @Column(name="role", length=50, nullable = false)

@@ -22,7 +22,7 @@ public class SessionEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)    // Lazy loads the obj
     @JoinColumn(name="module_id",nullable = false)    // Where the FK is stored
-    private ModulesEntity module;    //moduleEntity obj to many sessions
+    private ModuleEntity module;    //moduleEntity obj to many sessions
 
     @Column(name="session_date", nullable = false)
     private LocalDate sessionDate;

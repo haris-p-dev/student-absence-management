@@ -3,7 +3,6 @@ package gr.techpro.absence.entity;
 
 import gr.techpro.absence.enums.EnrollmentStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,12 +23,12 @@ public class EnrollmentEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="student_id", nullable = false)
-    private StudentsEntity student;
+    private StudentEntity student;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="module_id",nullable = false)
-    private ModulesEntity module;
+    private ModuleEntity module;
 
     @Column(name="enrolled_at",nullable = false, insertable = false)    // prevents overwriting data auto-created by db
     private LocalDate enrolledAt;

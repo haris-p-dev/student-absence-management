@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @NoArgsConstructor
 @Table(name="instructor")
-public class InstructorsEntity {
+public class InstructorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto generates the id

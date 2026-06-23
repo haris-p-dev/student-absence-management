@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @NoArgsConstructor
 @Table(name="module")
-public class ModulesEntity {
+public class ModuleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
