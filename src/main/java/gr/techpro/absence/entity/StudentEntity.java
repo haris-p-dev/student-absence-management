@@ -28,7 +28,7 @@ public class StudentEntity {
     private String lastName;
 
     @NotBlank
-    @Column(name="emal", length = 255, unique = true, nullable = false)
+    @Column(name="email", length = 255, unique = true, nullable = false)
     private String email;
 
 
