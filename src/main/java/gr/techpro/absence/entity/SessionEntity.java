@@ -40,6 +40,4 @@ public class SessionEntity {
     @Column(name="topic",length = 255)
     private String topic;
 
-
-
 }

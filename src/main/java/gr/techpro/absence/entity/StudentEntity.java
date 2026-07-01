@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -41,7 +42,7 @@ public class StudentEntity {
     private LocalDate enrollDate;
 
     @Column(name="created_at",insertable = false,nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
 
 

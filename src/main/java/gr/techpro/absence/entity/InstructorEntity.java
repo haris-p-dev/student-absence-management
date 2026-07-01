@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -32,6 +32,6 @@ public class InstructorEntity {
     private String email;
 
     @Column(name="created_at", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
 }

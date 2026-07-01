@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -44,5 +44,5 @@ public class ModuleEntity {
     private Integer acadYear;
 
     @Column(name="created_at", nullable = false)
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 }
