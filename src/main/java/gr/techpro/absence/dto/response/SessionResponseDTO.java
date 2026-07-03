@@ -25,7 +25,7 @@ public class SessionResponse {
     private final LocalTime endTime;
     private final String sessionType;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL) //topic can be null
     private final String topic;
 
 
