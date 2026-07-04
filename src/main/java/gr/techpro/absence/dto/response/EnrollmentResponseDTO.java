@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnrollmentResponse {
+public class EnrollmentResponseDTO {
 
 
 

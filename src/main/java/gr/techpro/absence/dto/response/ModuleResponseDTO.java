@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @Builder
-public class ModuleResponse {
+public class ModuleResponseDTO {
 
     private final Long id;
     private final String code;

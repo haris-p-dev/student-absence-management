@@ -32,11 +32,9 @@ public class StudentEntity {
     @Column(name="email", length = 255, unique = true, nullable = false)
     private String email;
 
-
     @NotBlank
     @Column(name="student_number", length = 50, unique = true,nullable = false)
     private String studentNumber;
-
 
     @Column(name="enrollment_date",insertable = false,nullable = false) //insertable=false. Database manages the dates
     private LocalDate enrollDate;
