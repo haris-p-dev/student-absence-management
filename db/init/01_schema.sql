@@ -44,14 +44,6 @@ CREATE TABLE IF NOT EXISTS student (
     );
 
 -- enrollments (student <-> module)
-CREATE TABLE IF NOT EXISTS enrollment (
-    id           BIGSERIAL   PRIMARY KEY,
-    student_id   BIGINT      NOT NULL REFERENCES student(id) ON DELETE CASCADE,
-    module_id    BIGINT      NOT NULL REFERENCES module(id)  ON DELETE CASCADE,
-    enrolled_at  DATE        NOT NULL DEFAULT CURRENT_DATE,
-    status       VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',      -- ACTIVE | DROPPED | COMPLETED
-    UNIQUE (student_id, module_id)
-    );
 
 -- sessions (individual class meetings)
 CREATE TABLE IF NOT EXISTS session (

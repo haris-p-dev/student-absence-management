@@ -3,18 +3,18 @@ package gr.techpro.absence.dto.request;
 //Validations are applied in this class
 
 import gr.techpro.absence.enums.Semester;
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter@Setter
-@AllArgsConstructor
+@Entity
+@Getter @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ModuleRequestDTO {
 
     @NotBlank

@@ -7,25 +7,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 @Getter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SessionResponseDTO {
 
-    private final Long sessionId;
-    private final Long moduleId;
-    private final LocalDate sessionDate;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
-    private final String sessionType;
+    private Long sessionId;
+    private Long moduleId;
+    private LocalDate sessionDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String sessionType;
 
     @JsonInclude(JsonInclude.Include.NON_NULL) //topic can be null
-    private final String topic;
+    private String topic;
 
 
 }

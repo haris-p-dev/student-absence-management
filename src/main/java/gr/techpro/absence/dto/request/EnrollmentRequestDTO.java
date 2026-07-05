@@ -5,9 +5,11 @@ package gr.techpro.absence.dto.request;
 
 import lombok.*;
 
-@Getter@Setter
-@NoArgsConstructor
+
+@Getter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class EnrollmentRequestDTO {
 
     @NonNull

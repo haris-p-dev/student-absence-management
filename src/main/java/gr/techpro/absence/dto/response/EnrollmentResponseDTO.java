@@ -6,10 +6,13 @@ import lombok.*;
 
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnrollmentResponseDTO {
-
-
+    private Long id;
+    private Long studentId;
+    private Long moduleId;
+    private String status;
 
 }

@@ -10,13 +10,15 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class StudentResponseDTO {
 
-    private final Long id;
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final String studentNumber;
-    private final LocalDate enrollDate;
-    private final LocalDateTime createdDate;
+
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String studentNumber;
+    private LocalDate enrollDate;
+    private LocalDateTime createdDate;
 }

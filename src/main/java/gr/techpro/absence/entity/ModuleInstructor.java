@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name="module_instructor", uniqueConstraints ={
                                         @UniqueConstraint( columnNames = {
                                                 "module_id","instructor_id"})  })   //compination of the 2 columns must be unique
-public class ModuleInstructor {
+public class  ModuleInstructor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

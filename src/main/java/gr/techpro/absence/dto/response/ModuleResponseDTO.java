@@ -7,20 +7,22 @@ import gr.techpro.absence.enums.Semester;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ModuleResponseDTO {
 
-    private final Long id;
-    private final String code;
-    private final String title;
-    private final Integer credits;
-    private final Semester semester;
-    private final Integer academicYear;
-    private final LocalDateTime createdAt;
+    private Long id;
+    private String code;
+    private String title;
+    private Integer credits;
+    private Semester semester;
+    private Integer academicYear;
+    private LocalDateTime createdAt;
 
 }

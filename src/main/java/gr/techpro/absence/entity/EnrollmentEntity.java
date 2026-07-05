@@ -3,6 +3,7 @@ package gr.techpro.absence.entity;
 
 import gr.techpro.absence.enums.EnrollmentStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
