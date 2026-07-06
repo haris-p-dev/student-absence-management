@@ -3,9 +3,7 @@ package gr.techpro.absence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="student")
 public class StudentEntity {
 
