@@ -103,12 +103,43 @@ public class StudentServices {
 //        }
     }
 
-    //delete a student from db
-    public void deleteStudent(Long id){
+    // update a student's info. answers to students/{id}
+    public StudentResponseDTO updateInfo(Long id,StudentRequestDTO request){
 
-        if(stRepository.findById(id))
+        StudentEntity studentEntity = stRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
+
+
+        StudentEntity student = StudentEntity.builder()
+                .firstName(studentEntity.getFirstName())
+                .lastName(studentEntity.getLastName())
+                .email(studentEntity.getEmail())
+                .studentNumber(studentEntity.getStudentNumber())
+                .build();
+
+        StudentEntity updated = stRepository.save(student);
+
+        return StudentResponseDTO.builder()
+                .id(updated.getId())
+                .firstName(updated.getFirstName())
+                .lastName(updated.getLastName())
+                .email(updated.getEmail())
+                .studentNumber(updated.getStudentNumber())
+                .enrollDate(updated.getEnrollDate())
+                .createdDate(updated.getCreatedDate())
+                .build();
+
 
     }
+
+    //delete a student from db
+    public void deleteStudent(Long id){
+        StudentEntity studentEntity = stRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student with id " + id + " was not found."));
+        stRepository.delete(studentEntity);
+    }
+
+
 
 
 
