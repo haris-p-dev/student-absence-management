@@ -3,6 +3,7 @@ package gr.techpro.absence.service;
 import gr.techpro.absence.dto.request.StudentRequestDTO;
 import gr.techpro.absence.dto.response.StudentResponseDTO;
 import gr.techpro.absence.entity.StudentEntity;
+import gr.techpro.absence.exception.DuplicateResourceException;
 import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.StudentRepository;
 import jakarta.transaction.Transactional;
@@ -24,7 +25,11 @@ public class StudentServices {
     public StudentResponseDTO createStudent(StudentRequestDTO request) {
         //throws exception if email already exists
         if(stRepository.existsByEmail(request.getEmail())){
-            throw new ResourceNotFoundException("A Student with email ' "+request.getEmail()+" already exists");
+            throw new ResourceNotFoundException("A Student with email '"+request.getEmail()+"' already exists");
+        }
+
+        if(stRepository.existsByStudentNumber(request.getStudentNumber())){
+            throw new DuplicateResourceException("Student number: '"+request.getStudentNumber()+"' belongs to another student");
         }
 
         //map dto to the relevant Entity
@@ -96,6 +101,13 @@ public class StudentServices {
 //
 //       return response;
 //        }
+    }
+
+    //delete a student from db
+    public void deleteStudent(Long id){
+
+        if(stRepository.findById(id))
+
     }
 
 

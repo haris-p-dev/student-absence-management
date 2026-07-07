@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface StudentRepository extends JpaRepository<StudentEntity,Long> {
 
     boolean existsByEmail(@NotBlank @Email @Size(max=255) String email);
+    boolean existsByStudentNumber(@NotBlank @Size(max=20) String stNumber);
 }
