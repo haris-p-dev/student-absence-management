@@ -7,19 +7,23 @@ import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class StudentServices {
 
-    private final StudentRepository studentRepository;
+    private final StudentRepository stRepository;
 
-
+    //create new student if not exists
     public StudentResponseDTO createStudent(StudentRequestDTO request) {
-
-        if(studentRepository.existsByEmail(request.getEmail())){
+        //throws exception if email already exists
+        if(stRepository.existsByEmail(request.getEmail())){
             throw new ResourceNotFoundException("A Student with email ' "+request.getEmail()+" already exists");
         }
 
@@ -32,7 +36,7 @@ public class StudentServices {
                 .build();
 
         //saving the new entity via Repository
-        StudentEntity savedStudent = studentRepository.save(student);
+        StudentEntity savedStudent = stRepository.save(student);
 
         return StudentResponseDTO.builder()
                 .id(savedStudent.getId())
@@ -44,12 +48,12 @@ public class StudentServices {
                 .build();
 
     }
+
+    //answers to endpoint /api/students/{id}
     public StudentResponseDTO getStudentById(Long id) {
 
-        //exception for duplicates and for non existed student to be implemented.
-        StudentEntity studentEntity = studentRepository.findById(id)
-    //wrong syntax here
-        .orElseThrow(ResourceNotFoundException("There is already a student with id "+id));
+        StudentEntity studentEntity = stRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Student not found"));
 
         return  StudentResponseDTO.builder()
                 .id(studentEntity.getId())
@@ -61,6 +65,38 @@ public class StudentServices {
                 .build();
     }
 
+    //list all students
+    public List<StudentResponseDTO> getAllStudents() {
+
+        return stRepository.findAll()
+                .stream().map(student->StudentResponseDTO.builder()
+                                .id(student.getId())
+                                .firstName(student.getFirstName())
+                                .lastName(student.getLastName())
+                                .studentNumber(student.getStudentNumber())
+                                .email(student.getEmail())
+                                .build())
+                .toList();
+
+//  Same as above. keeping it for Notes, MUST delete later
+//
+//        List<StudentResponseDTO> response = new ArrayList<>();
+//
+//        for(StudentEntity x: studentEntities){
+//
+//            response.add(
+//                    StudentResponseDTO.builder()
+//                            .id(x.getId())
+//                            .firstName(x.getFirstName())
+//                            .lastName(x.getLastName())
+//                            .studentNumber(x.getStudentNumber())
+//                            .email(x.getEmail())
+//                            .build()
+//                            );
+//
+//       return response;
+//        }
+    }
 
 
 

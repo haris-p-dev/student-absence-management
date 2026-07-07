@@ -18,9 +18,12 @@ public class StudentController {
     private final StudentServices studentServices;
     private final StudentRequestDTO studentRequestDTO;
 
-    @PostMapping("/students"){
+    @PostMapping("/students") {
+    }
 
+    @GetMapping("/students/{id}"){}
 
+    @GetMapping("/students ")
 
 
     }
