@@ -82,25 +82,6 @@ public class StudentServices {
                                 .email(student.getEmail())
                                 .build())
                 .toList();
-
-//  Same as above. keeping it for Notes, MUST delete later
-//
-//        List<StudentResponseDTO> response = new ArrayList<>();
-//
-//        for(StudentEntity x: studentEntities){
-//
-//            response.add(
-//                    StudentResponseDTO.builder()
-//                            .id(x.getId())
-//                            .firstName(x.getFirstName())
-//                            .lastName(x.getLastName())
-//                            .studentNumber(x.getStudentNumber())
-//                            .email(x.getEmail())
-//                            .build()
-//                            );
-//
-//       return response;
-//        }
     }
 
     // update a student's info. answers to students/{id}
@@ -110,14 +91,20 @@ public class StudentServices {
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
 
 
-        StudentEntity student = StudentEntity.builder()
-                .firstName(studentEntity.getFirstName())
-                .lastName(studentEntity.getLastName())
-                .email(studentEntity.getEmail())
-                .studentNumber(studentEntity.getStudentNumber())
-                .build();
+        if(stRepository.existByEmail(request.getEmail(), id)){
+            throw new DuplicateResourceException("This email is belongs to another student");
+        }
 
-        StudentEntity updated = stRepository.save(student);
+        if(stRepository.existByStudentNumber(request.getEmail(), id)){
+            throw new DuplicateResourceException("This Student Number is belongs to another student");
+        }
+
+        studentEntity.setFirstName(request.getFirstName());
+        studentEntity.setLastName(request.getLastName());
+        studentEntity.setEmail(request.getEmail());
+        studentEntity.setStudentNumber(request.getStudentNumber());
+
+        StudentEntity updated = stRepository.save(studentEntity);
 
         return StudentResponseDTO.builder()
                 .id(updated.getId())
@@ -128,8 +115,6 @@ public class StudentServices {
                 .enrollDate(updated.getEnrollDate())
                 .createdDate(updated.getCreatedDate())
                 .build();
-
-
     }
 
     //delete a student from db

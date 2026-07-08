@@ -10,4 +10,7 @@ public interface StudentRepository extends JpaRepository<StudentEntity,Long> {
 
     boolean existsByEmail(@NotBlank @Email @Size(max=255) String email);
     boolean existsByStudentNumber(@NotBlank @Size(max=20) String stNumber);
+
+    boolean existByEmail(@NotBlank @Email @Size(max=255) String email, Long id);
+    boolean existByStudentNumber(@NotBlank @Size(max=20) String stNumber, Long id);
 }
