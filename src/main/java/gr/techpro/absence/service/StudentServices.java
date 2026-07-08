@@ -91,11 +91,11 @@ public class StudentServices {
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
 
 
-        if(stRepository.existByEmail(request.getEmail(), id)){
+        if(stRepository.existsByEmailAndIdNot(request.getEmail(), id)){
             throw new DuplicateResourceException("This email is belongs to another student");
         }
 
-        if(stRepository.existByStudentNumber(request.getEmail(), id)){
+        if(stRepository.existsByStudentNumberAndIdNot(request.getEmail(), id)){
             throw new DuplicateResourceException("This Student Number is belongs to another student");
         }
 

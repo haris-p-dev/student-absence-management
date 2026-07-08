@@ -23,13 +23,11 @@ public class AbsenceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="enrollment_id")
-    private Long enrollment;
-
+    private EnrollmentEntity enrollment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="session_id")
     private SessionEntity session;
-
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", length = 20, nullable = false)

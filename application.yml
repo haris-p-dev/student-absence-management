@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://172.23.240.1:5432/student_management
+    url: jdbc:postgresql://172.23.240.1:5432/absence_db
     username: postgres
     password: skasequerin
     driver-class-name: org.postgresql.Driver
