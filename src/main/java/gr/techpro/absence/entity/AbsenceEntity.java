@@ -1,5 +1,6 @@
 package gr.techpro.absence.entity;
 
+import gr.techpro.absence.enums.AbsenceStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,12 +28,12 @@ public class AbsenceEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="session_id")
-    private Long session;
+    private SessionEntity session;
 
 
     @Enumerated(EnumType.STRING)
     @Column(name="status", length = 20, nullable = false)
-    private String status;
+    private AbsenceStatus status;
 
     @Column(name="justification")
     private String justification;
