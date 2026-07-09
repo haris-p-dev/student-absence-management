@@ -89,21 +89,29 @@ public class ModuleServices {
             throw new DuplicateResourceException("This module module-code belongs to another module");
         }
 
+        module.setCode(request.getCode());
+        module.setTitle(request.getTitle());
+        module.setCredits(request.getCredits());
+        module.setSemester(request.getSemester());
+        module.setAcadYear(request.getAcademicYear());
+
+        ModuleEntity updated = moduleRepo.save(module);
+
+
         return ModuleResponseDTO.builder()
-                .id(module.getId())
-                .code(module.getCode())
-                .title(module.getTitle())
-                .credits(module.getCredits())
-                .semester(module.getSemester())
-                .academicYear(module.getAcadYear())
-                .createdAt(module.getCreatedDate())
+                .id(updated.getId())
+                .code(updated.getCode())
+                .title(updated.getTitle())
+                .credits(updated.getCredits())
+                .semester(updated.getSemester())
+                .academicYear(updated.getAcadYear())
+                .createdAt(updated.getCreatedDate())
                 .build();
     }
 
     public void deleteModule(Long id){
         ModuleEntity module= moduleRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Module with id '"+id+"' cannot be found."));
-
         moduleRepo.delete(module);
     }
 

@@ -1,6 +1,7 @@
 package gr.techpro.absence.entity;
 
 
+import gr.techpro.absence.dto.response.StudentResponseDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -41,9 +42,5 @@ public class StudentEntity {
 
     @Column(name="created_at",insertable = false,nullable = false)
     private LocalDateTime createdDate;
-
-
-
-
 
 }

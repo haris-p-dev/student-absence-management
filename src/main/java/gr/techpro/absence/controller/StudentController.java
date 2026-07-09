@@ -21,8 +21,8 @@ public class StudentController {
 
 
     @PostMapping("/students")
-    public StudentResponseDTO createStudent(@RequestBody StudentRequestDTO requestDTO){
-        return studentServices.createStudent(requestDTO);
+    public StudentResponseDTO createStudent(@Valid @RequestBody StudentRequestDTO request){
+        return studentServices.createStudent(request);
     }
 
     @GetMapping("/students/{id}")
@@ -40,5 +40,7 @@ public class StudentController {
         studentServices.deleteStudent(id);
     }
 
-
+    @PutMapping("/students/{id}")
+    public StudentResponseDTO updateStudent(@PathVariable Long id, @Valid @RequestBody StudentRequestDTO request)
+    { return studentServices.updateStudent(id, request);}
 }

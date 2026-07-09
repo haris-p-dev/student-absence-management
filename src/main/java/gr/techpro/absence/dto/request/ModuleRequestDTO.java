@@ -23,9 +23,14 @@ public class ModuleRequestDTO {
     @Size(max = 255)
     private String title;
 
+    @Positive
+    @NotNull
+    private Integer credits;
+
     @NotNull
     @Size(max = 20)
     private Semester semester;
+
 
     @NotNull
     @Positive

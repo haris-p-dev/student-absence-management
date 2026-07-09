@@ -41,16 +41,9 @@ public class StudentServices {
                 .build();
 
         //saving the new entity via Repository
-        StudentEntity savedStudent = studentRepo.save(student);
+        StudentEntity updated= studentRepo.save(student);
 
-        return StudentResponseDTO.builder()
-                .id(savedStudent.getId())
-                .firstName(savedStudent.getFirstName())
-                .lastName(savedStudent.getLastName())
-                .email(savedStudent.getEmail())
-                .enrollDate(savedStudent.getEnrollDate())
-                .createdDate(savedStudent.getCreatedDate())
-                .build();
+        return  StudentResponseDTO.from(updated);
 
     }
 
@@ -60,27 +53,16 @@ public class StudentServices {
         StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
 
-        return  StudentResponseDTO.builder()
-                .id(studentEntity.getId())
-                .firstName(studentEntity.getFirstName())
-                .lastName(studentEntity.getLastName())
-                .email(studentEntity.getEmail())
-                .enrollDate(studentEntity.getEnrollDate())
-                .createdDate(studentEntity.getCreatedDate())
-                .build();
+        return  StudentResponseDTO.from(studentEntity);
+
     }
 
     //list all students
     public List<StudentResponseDTO> getAllStudents() {
 
         return studentRepo.findAll()
-                .stream().map(student->StudentResponseDTO.builder()
-                                .id(student.getId())
-                                .firstName(student.getFirstName())
-                                .lastName(student.getLastName())
-                                .studentNumber(student.getStudentNumber())
-                                .email(student.getEmail())
-                                .build())
+                .stream()
+                .map(student -> StudentResponseDTO.from(student))
                 .toList();
     }
 
@@ -91,11 +73,11 @@ public class StudentServices {
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " cannot be found."));
 
 
-        if(studentRepo.existsByEmailAndIdNot(request.getEmail(), id)){
+        if(studentRepo.existsByEmailAndIdNot(id,request.getEmail())){
             throw new DuplicateResourceException("This email is belongs to another student");
         }
 
-        if(studentRepo.existsByStudentNumberAndIdNot(request.getEmail(), id)){
+        if(studentRepo.existsByStudentNumberAndIdNot(id,request.getEmail())){
             throw new DuplicateResourceException("This Student Number belongs to another student");
         }
 
@@ -106,15 +88,7 @@ public class StudentServices {
 
         StudentEntity updated = studentRepo.save(studentEntity);
 
-        return StudentResponseDTO.builder()
-                .id(updated.getId())
-                .firstName(updated.getFirstName())
-                .lastName(updated.getLastName())
-                .email(updated.getEmail())
-                .studentNumber(updated.getStudentNumber())
-                .enrollDate(updated.getEnrollDate())
-                .createdDate(updated.getCreatedDate())
-                .build();
+        return  StudentResponseDTO.from(updated);
     }
 
     //delete a student from db
