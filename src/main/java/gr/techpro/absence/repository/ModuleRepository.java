@@ -8,7 +8,7 @@ public interface ModuleRepository extends JpaRepository<ModuleEntity,Long> {
 
       boolean existsByCode(String code);
 //
-//    boolean existsByEmailAndIdNot(String email, Long id);
+      boolean existsByCodeAndIdNot(Long id,String code);
 //
 //    boolean existsByStudentNumber(String studentNumber);
 //

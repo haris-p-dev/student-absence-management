@@ -1,6 +1,7 @@
 package gr.techpro.absence.entity;
 
 
+import gr.techpro.absence.enums.Semester;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -36,8 +37,9 @@ public class ModuleEntity {
     private Integer credits;
 
     @NotBlank
+    @Enumerated(EnumType.STRING)
     @Column(name="semester", length = 20, nullable = false)
-    private String semester;
+    private Semester semester;
 
     @NotNull
     @Column(name="academic_year",nullable = false)

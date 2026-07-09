@@ -58,7 +58,7 @@ public class StudentServices {
     public StudentResponseDTO getStudentById(Long id) {
 
         StudentEntity studentEntity = studentRepo.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Student not found"));
+                .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
 
         return  StudentResponseDTO.builder()
                 .id(studentEntity.getId())
@@ -85,10 +85,10 @@ public class StudentServices {
     }
 
     // update a student's info. answers to students/{id}
-    public StudentResponseDTO updateInfo(Long id,StudentRequestDTO request){
+    public StudentResponseDTO updateStudent(Long id,StudentRequestDTO request){
 
         StudentEntity studentEntity = studentRepo.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
+                .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " cannot be found."));
 
 
         if(studentRepo.existsByEmailAndIdNot(request.getEmail(), id)){
@@ -96,7 +96,7 @@ public class StudentServices {
         }
 
         if(studentRepo.existsByStudentNumberAndIdNot(request.getEmail(), id)){
-            throw new DuplicateResourceException("This Student Number is belongs to another student");
+            throw new DuplicateResourceException("This Student Number belongs to another student");
         }
 
         studentEntity.setFirstName(request.getFirstName());
@@ -120,7 +120,7 @@ public class StudentServices {
     //delete a student from db
     public void deleteStudent(Long id){
         StudentEntity studentEntity = studentRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student with id " + id + " was not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Student with id " + id + " cannot be found."));
         studentRepo.delete(studentEntity);
     }
 
