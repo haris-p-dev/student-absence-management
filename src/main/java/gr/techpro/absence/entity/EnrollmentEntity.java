@@ -3,16 +3,15 @@ package gr.techpro.absence.entity;
 
 import gr.techpro.absence.enums.EnrollmentStatus;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="enrollment", uniqueConstraints = {
                                 @UniqueConstraint( columnNames = {       // Single Student enrollment per module
                                         "student_id", "module_id" })  })

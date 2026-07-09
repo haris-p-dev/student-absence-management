@@ -19,16 +19,16 @@ import java.util.List;
 @Transactional
 public class StudentServices {
 
-    private final StudentRepository stRepository;
+    private final StudentRepository studentRepo;
 
-    //create new student if not exists
+    //create new student if not already exists
     public StudentResponseDTO createStudent(StudentRequestDTO request) {
         //throws exception if email already exists
-        if(stRepository.existsByEmail(request.getEmail())){
+        if(studentRepo.existsByEmail(request.getEmail())){
             throw new ResourceNotFoundException("A Student with email '"+request.getEmail()+"' already exists");
         }
 
-        if(stRepository.existsByStudentNumber(request.getStudentNumber())){
+        if(studentRepo.existsByStudentNumber(request.getStudentNumber())){
             throw new DuplicateResourceException("Student number: '"+request.getStudentNumber()+"' belongs to another student");
         }
 
@@ -41,7 +41,7 @@ public class StudentServices {
                 .build();
 
         //saving the new entity via Repository
-        StudentEntity savedStudent = stRepository.save(student);
+        StudentEntity savedStudent = studentRepo.save(student);
 
         return StudentResponseDTO.builder()
                 .id(savedStudent.getId())
@@ -57,7 +57,7 @@ public class StudentServices {
     //answers to endpoint /api/students/{id}
     public StudentResponseDTO getStudentById(Long id) {
 
-        StudentEntity studentEntity = stRepository.findById(id)
+        StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Student not found"));
 
         return  StudentResponseDTO.builder()
@@ -73,7 +73,7 @@ public class StudentServices {
     //list all students
     public List<StudentResponseDTO> getAllStudents() {
 
-        return stRepository.findAll()
+        return studentRepo.findAll()
                 .stream().map(student->StudentResponseDTO.builder()
                                 .id(student.getId())
                                 .firstName(student.getFirstName())
@@ -87,15 +87,15 @@ public class StudentServices {
     // update a student's info. answers to students/{id}
     public StudentResponseDTO updateInfo(Long id,StudentRequestDTO request){
 
-        StudentEntity studentEntity = stRepository.findById(id)
+        StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " was not found."));
 
 
-        if(stRepository.existsByEmailAndIdNot(request.getEmail(), id)){
+        if(studentRepo.existsByEmailAndIdNot(request.getEmail(), id)){
             throw new DuplicateResourceException("This email is belongs to another student");
         }
 
-        if(stRepository.existsByStudentNumberAndIdNot(request.getEmail(), id)){
+        if(studentRepo.existsByStudentNumberAndIdNot(request.getEmail(), id)){
             throw new DuplicateResourceException("This Student Number is belongs to another student");
         }
 
@@ -104,7 +104,7 @@ public class StudentServices {
         studentEntity.setEmail(request.getEmail());
         studentEntity.setStudentNumber(request.getStudentNumber());
 
-        StudentEntity updated = stRepository.save(studentEntity);
+        StudentEntity updated = studentRepo.save(studentEntity);
 
         return StudentResponseDTO.builder()
                 .id(updated.getId())
@@ -119,9 +119,9 @@ public class StudentServices {
 
     //delete a student from db
     public void deleteStudent(Long id){
-        StudentEntity studentEntity = stRepository.findById(id)
+        StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student with id " + id + " was not found."));
-        stRepository.delete(studentEntity);
+        studentRepo.delete(studentEntity);
     }
 
 

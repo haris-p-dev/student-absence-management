@@ -3,9 +3,7 @@ package gr.techpro.absence.entity;
 
 import gr.techpro.absence.enums.SessionType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +11,8 @@ import java.time.LocalTime;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "session")
 public class SessionEntity {
 
