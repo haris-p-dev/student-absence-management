@@ -26,8 +26,6 @@ public class ModuleInstructorService {
     private final InstructorRepository instructorRepo;
     private final ModuleRepository moduleRepo;
 
-//  assignInstructorToModule()
-//  Assign an instructor to a module.
 
     public ModuleInstructorResponseDTO assignInstructorToModule(Long instructorId, Long moduleId, InstructorRole role){
 
@@ -55,9 +53,8 @@ public class ModuleInstructorService {
 
     }
 
-//    removeInstructorFromModule()
 
-    public String removeInstructorFromModule(Long instructorId, Long moduleId){
+    public String removeRelationship(Long instructorId, Long moduleId){
 
         InstructorEntity instructor = instructorRepo.findById(instructorId)
                 .orElseThrow(()->new ResourceNotFoundException("Instructor with id '"+instructorId+"' cannot be found"));
@@ -81,8 +78,6 @@ public class ModuleInstructorService {
     }
 
 
-//    getModulesForInstructor()
-
     public List<ModuleInstructorResponseDTO> getModulesOfInstructor(Long instructorId){
 
        instructorRepo.findById(instructorId)
@@ -95,13 +90,11 @@ public class ModuleInstructorService {
                     "Instructor does NOT teach any module at the moment." );
         }
 
-        return moduleInstructorRepo.findAll()
-                .stream()
-                .map(entity-> ModuleInstructorResponseDTO.from(entity))
+        return relationships.stream()
+                .map(entity -> ModuleInstructorResponseDTO.from(entity))
                 .toList();
     }
 
-    //    getInstructorsForModule()
 
     public List<ModuleInstructorResponseDTO> getInstructorsOfSameModule(Long moduleId){
         moduleRepo.findById(moduleId)
@@ -114,10 +107,10 @@ public class ModuleInstructorService {
             throw new ResourceNotFoundException(
                     "This module has no teachers attached yet." );
         }
-        return moduleInstructorRepo.findAll()
-                .stream()
-                .map(entity->ModuleInstructorResponseDTO.from(entity))
+        return relationships.stream()
+                .map(entity -> ModuleInstructorResponseDTO.from(entity))
                 .toList();
+
     }
 
 

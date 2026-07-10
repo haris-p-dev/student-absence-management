@@ -2,7 +2,7 @@ package gr.techpro.absence.controller;
 
 import gr.techpro.absence.dto.request.ModuleRequestDTO;
 import gr.techpro.absence.dto.response.ModuleResponseDTO;
-import gr.techpro.absence.service.ModuleServices;
+import gr.techpro.absence.service.ModuleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ModuleController {
 
-    private final ModuleServices moduleServices;
+    private final ModuleService moduleServices;
 
     //create a module
     @PostMapping("/modules")

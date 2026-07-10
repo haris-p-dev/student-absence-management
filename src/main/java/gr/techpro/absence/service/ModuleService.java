@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ModuleServices {
+public class ModuleService {
 
     private final ModuleRepository moduleRepo;
 
