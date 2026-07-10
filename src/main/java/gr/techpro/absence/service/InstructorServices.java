@@ -3,8 +3,6 @@ package gr.techpro.absence.service;
 
 import gr.techpro.absence.dto.request.InstructorRequestDTO;
 import gr.techpro.absence.dto.response.InstructorResponseDTO;
-import gr.techpro.absence.dto.response.InstructorResponseDTO;
-import gr.techpro.absence.entity.InstructorEntity;
 import gr.techpro.absence.entity.InstructorEntity;
 import gr.techpro.absence.exception.DuplicateResourceException;
 import gr.techpro.absence.exception.ResourceNotFoundException;
