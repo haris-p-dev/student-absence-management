@@ -11,11 +11,6 @@ import java.util.Optional;
 
 public interface EnrollmentRepository extends JpaRepository <EnrollmentEntity,Long>{
 
-
     boolean existsByStudentIdAndModuleId(Long student, Long module);
-    //
-//    List<ModuleInstructorEntity> findByInstructorId(Long instructorId);
-//
-//    List<ModuleInstructorEntity> findByModuleId(Long moduleId);
 
 }

@@ -3,6 +3,8 @@ package gr.techpro.absence.dto.request;
 //Validations are applied in this class
 
 
+import gr.techpro.absence.enums.EnrollmentStatus;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -17,5 +19,8 @@ public class EnrollmentRequestDTO {
 
     @NonNull
     private Long moduleId;
+
+    @NotNull
+    private EnrollmentStatus status;
 
 }

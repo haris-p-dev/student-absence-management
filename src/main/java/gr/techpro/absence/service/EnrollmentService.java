@@ -1,10 +1,10 @@
 package gr.techpro.absence.service;
 
+import gr.techpro.absence.dto.request.EnrollmentRequestDTO;
 import gr.techpro.absence.dto.response.EnrollmentResponseDTO;
 import gr.techpro.absence.entity.EnrollmentEntity;
 import gr.techpro.absence.entity.ModuleEntity;
 import gr.techpro.absence.entity.StudentEntity;
-import gr.techpro.absence.enums.EnrollmentStatus;
 import gr.techpro.absence.exception.DuplicateResourceException;
 import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.EnrollmentRepository;
@@ -24,28 +24,33 @@ public class EnrollmentService {
     private final StudentRepository studentRepo;
     private final ModuleRepository moduleRepo;
 
-    public EnrollmentResponseDTO createEnrollment(Long studentId, Long moduleId, EnrollmentStatus status){
+    public EnrollmentResponseDTO createEnrollment(EnrollmentRequestDTO request){
 
-        StudentEntity student= studentRepo.findById(studentId)
-                .orElseThrow(()-> new ResourceNotFoundException("Student id "+studentId+" does not exist"));
+        StudentEntity student = studentRepo.findById(request.getStudentId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Student with id '" + request.getStudentId() + "' cannot be found."));
 
-        ModuleEntity module = moduleRepo.findById(moduleId)
-                .orElseThrow(()->new ResourceNotFoundException("Module id "+moduleId+"do not exist"));
+        ModuleEntity module = moduleRepo.findById(request.getModuleId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Module with id '" + request.getModuleId() + "' cannot be found."));
 
-        if(enrollmentRepo.existsByStudentIdAndModuleId(studentId,moduleId)){
-            throw new DuplicateResourceException("Student is already enrolled in this module");
+        if (enrollmentRepo.existsByStudentIdAndModuleId(
+                request.getStudentId(),
+                request.getModuleId())) {
+
+            throw new DuplicateResourceException(
+                    "Student is already enrolled in this module.");
         }
 
-        EnrollmentEntity completedEntry = new EnrollmentEntity();
+        EnrollmentEntity enrollment = new EnrollmentEntity();
 
-        completedEntry.setStudent(student);
-        completedEntry.setModule(module);
-        completedEntry.setStatus(status);
+        enrollment.setStudent(student);
+        enrollment.setModule(module);
+        enrollment.setStatus(request.getStatus());
 
-        EnrollmentEntity updated = enrollmentRepo.save(completedEntry);
+        EnrollmentEntity saved = enrollmentRepo.save(enrollment);
 
-        return EnrollmentResponseDTO.from(updated);
-
+        return EnrollmentResponseDTO.from(saved);
     }
 
 
