@@ -5,6 +5,7 @@ import gr.techpro.absence.dto.response.ModuleInstructorResponseDTO;
 import gr.techpro.absence.entity.InstructorEntity;
 import gr.techpro.absence.entity.ModuleEntity;
 import gr.techpro.absence.entity.ModuleInstructorEntity;
+import gr.techpro.absence.enums.EnrollmentStatus;
 import gr.techpro.absence.enums.InstructorRole;
 import gr.techpro.absence.exception.DuplicateResourceException;
 import gr.techpro.absence.exception.ResourceNotFoundException;
@@ -47,14 +48,14 @@ public class ModuleInstructorService {
         completedEntry.setInstructor(instructor);
         completedEntry.setRole(role);
 
-        ModuleInstructorEntity saved = moduleInstructorRepo.save(completedEntry);
+        ModuleInstructorEntity updated = moduleInstructorRepo.save(completedEntry);
 
-        return ModuleInstructorResponseDTO.from(saved);
+        return ModuleInstructorResponseDTO.from(updated);
 
     }
 
 
-    public String removeRelationship(Long instructorId, Long moduleId){
+    public String removeRelationship(Long instructorId, Long moduleId, EnrollmentStatus status){
 
         InstructorEntity instructor = instructorRepo.findById(instructorId)
                 .orElseThrow(()->new ResourceNotFoundException("Instructor with id '"+instructorId+"' cannot be found"));

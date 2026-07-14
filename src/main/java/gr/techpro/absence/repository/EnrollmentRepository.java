@@ -12,13 +12,10 @@ import java.util.Optional;
 public interface EnrollmentRepository extends JpaRepository <EnrollmentEntity,Long>{
 
 
-    boolean combinationExists(Long module, Long instructor);
-
-    Optional<ModuleInstructorEntity>
-    findByInstructorIdAndModuleId(Long instructorId, Long moduleId);
-
-    List<ModuleInstructorEntity> findByInstructorId(Long instructorId);
-
-    List<ModuleInstructorEntity> findByModuleId(Long moduleId);
+    boolean existsByStudentIdAndModuleId(Long student, Long module);
+    //
+//    List<ModuleInstructorEntity> findByInstructorId(Long instructorId);
+//
+//    List<ModuleInstructorEntity> findByModuleId(Long moduleId);
 
 }

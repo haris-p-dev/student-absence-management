@@ -23,6 +23,7 @@ public class StudentServices {
 
     //create new student if not already exists
     public StudentResponseDTO createStudent(StudentRequestDTO request) {
+
         //throws exception if email already exists
         if(studentRepo.existsByEmail(request.getEmail())){
             throw new ResourceNotFoundException("A Student with email '"+request.getEmail()+"' already exists");
