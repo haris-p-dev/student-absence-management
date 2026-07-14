@@ -12,9 +12,9 @@ public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     boolean existsByEmail(String email);
 
-    boolean existsByEmailAndIdNot(Long id,String email);
-
     boolean existsByStudentNumber(String studentNumber);
 
-    boolean existsByStudentNumberAndIdNot(Long id,String email);
+    boolean existsByIdNotAndEmail(Long id,String email);
+
+    boolean existsByIdNotAndStudentNumber(Long id,String studentNumber);
 }

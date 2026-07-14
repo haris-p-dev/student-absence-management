@@ -19,24 +19,25 @@ public class ModuleInstructorController {
     private final ModuleInstructorService modInsService;
 
     @PostMapping("/modules/{moduleId}/instructors/{instructorId}")
-    public ModuleInstructorResponseDTO assignInstructorToModule(@Valid @PathVariable Long moduleId,
-                                                                @Valid@PathVariable Long instructorId,
-                                                                @Valid@RequestParam InstructorRole role) {
+    public ModuleInstructorResponseDTO assignInstructorToModule( @PathVariable Long moduleId,
+                                                                @PathVariable Long instructorId,
+                                                                @RequestParam InstructorRole role) {
         return modInsService.assignInstructorToModule(instructorId, moduleId, role);
     }
 
     @DeleteMapping("/modules/{moduleId}/instructors/{instructorId}")
-    public String removeRelationship( @Valid@PathVariable Long moduleId,@Valid @PathVariable Long instructorId) {
+    public String removeRelationship( @PathVariable Long moduleId, @PathVariable Long instructorId) {
+
         return modInsService.removeRelationship(instructorId, moduleId);
     }
 
     @GetMapping("/modules/{moduleId}/instructors")
-    public List<ModuleInstructorResponseDTO> getInstructorsOfModule(@Valid @PathVariable Long moduleId) {
+    public List<ModuleInstructorResponseDTO> getInstructorsOfModule( @PathVariable Long moduleId) {
         return modInsService.getInstructorsOfSameModule(moduleId);
     }
 
     @GetMapping("/instructors/{instructorId}/modules")
-    public List<ModuleInstructorResponseDTO> getModulesOfInstructor( @Valid@PathVariable Long instructorId) {
+    public List<ModuleInstructorResponseDTO> getModulesOfInstructor( @PathVariable Long instructorId) {
         return modInsService.getModulesOfInstructor(instructorId);
     }
 

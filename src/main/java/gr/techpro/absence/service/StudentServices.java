@@ -72,12 +72,13 @@ public class StudentServices {
         StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " cannot be found."));
 
-
-        if(studentRepo.existsByEmailAndIdNot(id,request.getEmail())){
+//  id does not exist by mail does exist.
+        if(studentRepo.existsByIdNotAndEmail(id,request.getEmail())){
             throw new DuplicateResourceException("This email is belongs to another student");
         }
 
-        if(studentRepo.existsByStudentNumberAndIdNot(id,request.getEmail())){
+
+        if(studentRepo.existsByIdNotAndStudentNumber(id,request.getStudentNumber())){
             throw new DuplicateResourceException("This Student Number belongs to another student");
         }
 

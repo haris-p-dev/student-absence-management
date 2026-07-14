@@ -37,7 +37,7 @@ public class ModuleInstructorService {
                 .orElseThrow(()->new ResourceNotFoundException("Module with id '"+moduleId+"' cannot be found"));
 
 
-        if(moduleInstructorRepo.combinationExists(moduleId,instructorId)) {
+        if(moduleInstructorRepo.existsByModuleIdAndInstructorId(moduleId,instructorId)) {
             throw new DuplicateResourceException("Instructor "+instructor.getFirstName()+" is already registered in this module "+module.getTitle());
         };
 
@@ -62,7 +62,7 @@ public class ModuleInstructorService {
         ModuleEntity module= moduleRepo.findById(moduleId)
                 .orElseThrow(()->new ResourceNotFoundException("Module with id '"+moduleId+"' cannot be found"));
 
-        if(!moduleInstructorRepo.combinationExists(moduleId,instructorId)) {
+        if(!moduleInstructorRepo.existsByModuleIdAndInstructorId(moduleId,instructorId)) {
                  throw new DuplicateResourceException("Instructor "+instructor.getFirstName()+" is NOT registered in this module "+module.getTitle());
         };
 

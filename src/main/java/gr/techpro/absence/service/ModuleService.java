@@ -85,7 +85,7 @@ public class ModuleService {
         ModuleEntity module= moduleRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Module with id '"+id+"' cannot be found."));
 
-        if(moduleRepo.existsByCodeAndIdNot(id,request.getCode())){
+        if(moduleRepo.existsByIdNotAndCode(id,request.getCode())){
             throw new DuplicateResourceException("This module module-code belongs to another module");
         }
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ModuleInstructorRepository extends JpaRepository<ModuleInstructorEntity,Long> {
 
-    boolean combinationExists(Long module, Long instructor);
+    boolean existsByModuleIdAndInstructorId(Long module, Long instructor);
 
     Optional<ModuleInstructorEntity>
             findByInstructorIdAndModuleId(Long instructorId, Long moduleId);

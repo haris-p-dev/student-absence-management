@@ -70,7 +70,7 @@ public class InstructorServices {
                 .orElseThrow(()->new ResourceNotFoundException("Instructor with id " + id + " cannot be found."));
 
 
-        if(instructorRepo.existsByEmailAndIdNot(id,request.getEmail())){
+        if(instructorRepo.existsByIdNotAndEmail(id,request.getEmail())){
             throw new DuplicateResourceException("This email is belongs to another instructor");
         }
 
