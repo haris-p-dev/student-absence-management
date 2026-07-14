@@ -1,5 +1,6 @@
 package gr.techpro.absence.repository;
 
+import gr.techpro.absence.dto.request.ModuleRequestDTO;
 import gr.techpro.absence.entity.ModuleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

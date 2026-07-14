@@ -42,5 +42,6 @@ public class StudentController {
 
     @PutMapping("/students/{id}")
     public StudentResponseDTO updateStudent(@PathVariable Long id, @Valid @RequestBody StudentRequestDTO request)
-    { return studentServices.updateStudent(id, request);}
+    {
+        return studentServices.updateStudent(id, request);}
 }

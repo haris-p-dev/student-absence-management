@@ -39,13 +39,17 @@ public class ModuleInstructorService {
 
         if(moduleInstructorRepo.existsByModuleIdAndInstructorId(moduleId,instructorId)) {
             throw new DuplicateResourceException("Instructor "+instructor.getFirstName()+" is already registered in this module "+module.getTitle());
-        };
+        }
 
-        ModuleInstructorEntity completedEntry = new ModuleInstructorEntity();
 
-        completedEntry.setModule(module);
-        completedEntry.setInstructor(instructor);
-        completedEntry.setRole(role);
+        ModuleInstructorEntity completedEntry = ModuleInstructorEntity.builder()
+                .module(module)
+                .instructor(instructor)
+                .role(role)
+                .build();
+
+
+
 
         ModuleInstructorEntity updated = moduleInstructorRepo.save(completedEntry);
 
@@ -87,7 +91,7 @@ public class ModuleInstructorService {
 
         if(relationships.isEmpty()){
             throw new ResourceNotFoundException(
-                    "Instructor does NOT teach any module at the moment." );
+                    "This module has no teachers attached yet.");
         }
 
         return relationships.stream()
@@ -97,11 +101,11 @@ public class ModuleInstructorService {
 
 
     public List<ModuleInstructorResponseDTO> getInstructorsOfSameModule(Long moduleId){
+
         moduleRepo.findById(moduleId)
                 .orElseThrow(()->new ResourceNotFoundException("Module with id '"+moduleId+"' cannot be found"));
 
-        List<ModuleInstructorEntity> relationships =
-                moduleInstructorRepo.findByModuleId(moduleId);
+        List<ModuleInstructorEntity> relationships =moduleInstructorRepo.findByModuleId(moduleId);
 
         if(relationships.isEmpty()){
             throw new ResourceNotFoundException(

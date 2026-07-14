@@ -26,7 +26,7 @@ public class  ModuleInstructorEntity {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="instructor_id", nullable = false)
-    private InstructorEntity    instructor;
+    private InstructorEntity   instructor;
 
     @Enumerated(EnumType.STRING)
     @Column(name="role", length=50, nullable = false)

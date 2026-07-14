@@ -2,13 +2,13 @@ package gr.techpro.absence.dto.request;
 
 //Validations are applied in this class
 
-import jakarta.persistence.Entity;
+import gr.techpro.absence.enums.SessionType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter @Setter
 @Builder
@@ -16,18 +16,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class SessionRequestDTO {
 
+
     @NotNull
     private LocalDate sessionDate;
 
     @NotNull
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
     @NotNull
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
     @NotNull
-    @Size(max=20)
-    private String sessionType;
+    private SessionType sessionType;
 
     @Size(max=255)
     private String topic;

@@ -4,6 +4,9 @@ package gr.techpro.absence.dto.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import gr.techpro.absence.entity.SessionEntity;
+import gr.techpro.absence.entity.StudentEntity;
+import gr.techpro.absence.enums.SessionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,12 +25,23 @@ public class SessionResponseDTO {
     private Long sessionId;
     private Long moduleId;
     private LocalDate sessionDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
-    private String sessionType;
+    private LocalTime  startTime;
+    private LocalTime  endTime;
+    private SessionType sessionType;
 
     @JsonInclude(JsonInclude.Include.NON_NULL) //topic can be null
     private String topic;
+
+
+    //static method for mapping.
+    public static SessionResponseDTO from(SessionEntity session){
+        return SessionResponseDTO.builder()
+                .sessionId(session.getId())
+                .startTime(session.getStartTime())
+                .endTime(session.getEndTime())
+                .sessionType(session.getSessionType())
+                .build();
+    }
 
 
 }
