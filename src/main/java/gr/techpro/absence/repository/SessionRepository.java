@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface SessionRepository extends JpaRepository<SessionEntity,Long> {
 
-    boolean findBySession();
-
     List<SessionEntity> findBySessionId(Long sessionId);
 
     List<SessionEntity> findByModuleIdAndSessionDateBetween(Long moduleId, LocalDate from, LocalDate to);

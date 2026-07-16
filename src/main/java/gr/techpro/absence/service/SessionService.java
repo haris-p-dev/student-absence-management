@@ -24,22 +24,24 @@ public class SessionService {
     private final SessionRepository sessionRepo;
     private final ModuleRepository moduleRepo;
 
-    public SessionResponseDTO addModuleToSession(Long moduleId,SessionRequestDTO request){
 
-        ModuleEntity moduleEntity = moduleRepo.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Module not found with id: " + moduleId));
+    public SessionResponseDTO createSession(Long moduleId, SessionRequestDTO request) {
 
+        ModuleEntity module = moduleRepo.findById(moduleId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Module with id '" + moduleId + "' cannot be found."));
 
-        var start = request.getStartTime();
-        var end = request.getEndTime();
+        if (request.getStartTime() != null
+                && request.getEndTime() != null
+                && !request.getEndTime().isAfter(request.getStartTime())) {
 
-        if (start != null && end != null && !end.isAfter(start) ) {
             throw new IllegalArgumentException(
-                    "End time must be after start time");
+                    "End time must be after start time.");
         }
 
-
-        SessionEntity sessionEntity = SessionEntity.builder()
+        SessionEntity session = SessionEntity.builder()
+                .module(module)
                 .sessionDate(request.getSessionDate())
                 .startTime(request.getStartTime())
                 .endTime(request.getEndTime())
@@ -47,12 +49,11 @@ public class SessionService {
                 .topic(request.getTopic())
                 .build();
 
+        SessionEntity saved = sessionRepo.save(session);
 
-        SessionEntity updated = sessionRepo.save(sessionEntity);
-
-        return SessionResponseDTO.from(updated);
-
+        return SessionResponseDTO.from(saved);
     }
+
 
 
     public List<SessionResponseDTO> listAllSessions(Long moduleId){
