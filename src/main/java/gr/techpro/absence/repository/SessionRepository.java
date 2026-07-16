@@ -14,4 +14,5 @@ public interface SessionRepository extends JpaRepository<SessionEntity,Long> {
 
     List<SessionEntity> findByModuleIdAndSessionDateBetween(Long moduleId, LocalDate from, LocalDate to);
 
+    List<SessionEntity> findByModuleId(Long id);
 }

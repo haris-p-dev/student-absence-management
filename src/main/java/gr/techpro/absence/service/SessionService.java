@@ -53,9 +53,6 @@ public class SessionService {
 
         return SessionResponseDTO.from(saved);
     }
-
-
-
     public List<SessionResponseDTO> listAllSessions(Long moduleId){
 
         moduleRepo.findById(moduleId)
@@ -75,8 +72,6 @@ public class SessionService {
                 .toList();
 
     }
-
-
     public List<SessionResponseDTO> getSessionsForModuleBetweenDates(Long moduleId,LocalDate from,LocalDate to) {
 
         if (from.isAfter(to)) {

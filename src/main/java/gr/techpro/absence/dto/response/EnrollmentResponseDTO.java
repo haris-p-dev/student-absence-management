@@ -1,14 +1,12 @@
 package gr.techpro.absence.dto.response;
 
 import gr.techpro.absence.entity.EnrollmentEntity;
-import gr.techpro.absence.entity.StudentEntity;
 import gr.techpro.absence.enums.EnrollmentStatus;
 import lombok.*;
 
 import java.time.LocalDate;
 
 //Validations are applied in this class
-
 
 @Getter
 @Builder
