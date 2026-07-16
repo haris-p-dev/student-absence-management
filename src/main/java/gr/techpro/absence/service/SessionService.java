@@ -2,10 +2,10 @@ package gr.techpro.absence.service;
 
 
 import gr.techpro.absence.dto.request.SessionRequestDTO;
-import gr.techpro.absence.dto.response.ModuleInstructorResponseDTO;
 import gr.techpro.absence.dto.response.SessionResponseDTO;
 import gr.techpro.absence.entity.ModuleEntity;
 import gr.techpro.absence.entity.SessionEntity;
+import gr.techpro.absence.exception.InvalidRequestException;
 import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.ModuleRepository;
 import gr.techpro.absence.repository.SessionRepository;
@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -33,7 +34,8 @@ public class SessionService {
         var end = request.getEndTime();
 
         if (start != null && end != null && !end.isAfter(start) ) {
-            throw new IllegalArgumentException("End time must be after start time");
+            throw new IllegalArgumentException(
+                    "End time must be after start time");
         }
 
 
@@ -53,28 +55,45 @@ public class SessionService {
     }
 
 
-    public List<SessionResponseDTO> listAllSessions(Long moduleId) {
+    public List<SessionResponseDTO> listAllSessions(Long moduleId){
 
         moduleRepo.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("There is no listed sessions for this module "));
+                .orElseThrow(() -> new ResourceNotFoundException("Module not found with id: " + moduleId));
+
 
         List<SessionEntity> relationships = sessionRepo.findBySessionId(moduleId);
 
+
         if (relationships.isEmpty()) {
             throw new ResourceNotFoundException(
-                    "There is no listed sessions for this module.");
-
-            return relationships.stream()
-                    .map(entity -> SessionResponseDTO.from(entity))
-                    .toList();
+                    "There are no listed sessions for this module.");
         }
+
+        return relationships.stream()
+                .map(entity -> SessionResponseDTO.from(entity))
+                .toList();
+
     }
+
+
+    public List<SessionResponseDTO> getSessionsForModuleBetweenDates(Long moduleId,LocalDate from,LocalDate to) {
+
+        if (from.isAfter(to)) {
+            throw new InvalidRequestException(
+                    "'from' date cannot be after 'to' date.");
+        }
+
+        if (!moduleRepo.existsById(moduleId)) {
+            throw new ResourceNotFoundException(
+                    "Module with id '" + moduleId + "' cannot be found.");
+        }
+
+        return sessionRepo
+                .findByModuleIdAndSessionDateBetween(moduleId, from, to)
+                .stream()
+                .map(entity -> SessionResponseDTO.from(entity))
+                .toList();
     }
-
-
-
-
-
 
 
 }
