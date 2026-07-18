@@ -53,25 +53,27 @@ public class SessionService {
 
         return SessionResponseDTO.from(saved);
     }
-    public List<SessionResponseDTO> listAllSessions(Long moduleId){
 
-        moduleRepo.findById(moduleId)
-                .orElseThrow(() -> new ResourceNotFoundException("Module not found with id: " + moduleId));
+    public List<SessionResponseDTO> listAllSessions(Long id)   {
 
+        moduleRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Module not found with id: " + id));
 
-        List<SessionEntity> relationships = sessionRepo.findBySessionId(moduleId);
+        //lists every session with the above module id
+        List<SessionEntity> sessions = sessionRepo.findByModuleId(id);
 
-
-        if (relationships.isEmpty()) {
+        if (sessions.isEmpty()) {
             throw new ResourceNotFoundException(
                     "There are no listed sessions for this module.");
         }
 
-        return relationships.stream()
+        return sessions.stream()
                 .map(entity -> SessionResponseDTO.from(entity))
                 .toList();
 
     }
+
+
     public List<SessionResponseDTO> getSessionsForModuleBetweenDates(Long moduleId,LocalDate from,LocalDate to) {
 
         if (from.isAfter(to)) {

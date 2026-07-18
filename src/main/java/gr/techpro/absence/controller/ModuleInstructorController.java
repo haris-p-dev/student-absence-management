@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ModuleInstructorController {
@@ -40,5 +40,7 @@ public class ModuleInstructorController {
     public List<ModuleInstructorResponseDTO> getModulesOfInstructor( @PathVariable Long instructorId) {
         return modInsService.getModulesOfInstructor(instructorId);
     }
+
+
 
 }

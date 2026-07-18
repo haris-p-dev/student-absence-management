@@ -5,14 +5,11 @@ import gr.techpro.absence.dto.response.AbsenceResponseDTO;
 import gr.techpro.absence.entity.AbsenceEntity;
 import gr.techpro.absence.entity.EnrollmentEntity;
 import gr.techpro.absence.entity.SessionEntity;
-import gr.techpro.absence.entity.StudentEntity;
-import gr.techpro.absence.enums.AbsenceStatus;
 import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.extra_validation.AbsenceValidator;
 import gr.techpro.absence.repository.AbsenceRepository;
 import gr.techpro.absence.repository.EnrollmentRepository;
 import gr.techpro.absence.repository.SessionRepository;
-import gr.techpro.absence.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +26,7 @@ public class AbsenceService {
     private final AbsenceRepository absenceRepo;
     private final EnrollmentRepository enrollmentRepo;
     private final SessionRepository sessionRepo;
-    private final StudentRepository studentRepo;
+
 
     //validator must be init/zed here for proper constructor injection
     private final AbsenceValidator absenceValidator;
@@ -71,7 +68,6 @@ public class AbsenceService {
                         new ResourceNotFoundException("Absence not found with id: " + id ));
 
         return AbsenceResponseDTO.from(absence);    }
-
 
    //Changes the state of an absence (justify / unjustify)
 

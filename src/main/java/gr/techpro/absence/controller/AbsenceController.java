@@ -1,21 +1,44 @@
 package gr.techpro.absence.controller;
 
+import gr.techpro.absence.dto.request.AbsenceRequestDTO;
 import gr.techpro.absence.dto.response.AbsenceResponseDTO;
+import gr.techpro.absence.service.AbsenceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
-@Controller
+@RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class AbsenceController {
 
+    private final AbsenceService absenceService;
+
+    @PostMapping("/absences")
+    public AbsenceResponseDTO recordAttendance(AbsenceRequestDTO request){
+        return absenceService.recordAttendance(request);
+    }
 
 
+    @GetMapping("/absences/{id}")
+    public AbsenceResponseDTO getAbsence(@PathVariable Long id){
+        return   absenceService.getAbsences(id);
+    }
 
-    @GetMapping("/{id}")
-    public AbsenceResponseDTO getAbsence(@PathVariable Long id){}
+    @PatchMapping("/absences/{id}/justify")
+    public AbsenceResponseDTO justifyAbsence(@PathVariable Long id, @Valid @RequestParam AbsenceRequestDTO request){
+        return absenceService.justifyAbsence(id, request);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AbsenceResponseDTO>> getAbsences(  @RequestParam(required = false) Long studentId,
+                                                                  @RequestParam(required = false) Long moduleId,
+                                                                  @RequestParam(required = false) Long sessionId) {
+        List<AbsenceResponseDTO> absences = absenceService.getAbsences(studentId, moduleId, sessionId);
+        return ResponseEntity.ok(absences);
+    }
 }
