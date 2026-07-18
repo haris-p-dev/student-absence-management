@@ -3,7 +3,6 @@ package gr.techpro.absence.dto.request;
 //Validations are applied in this class
 
 import gr.techpro.absence.enums.Semester;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

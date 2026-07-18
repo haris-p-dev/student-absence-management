@@ -1,7 +1,6 @@
 package gr.techpro.absence.entity;
 
 
-import gr.techpro.absence.dto.response.StudentResponseDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

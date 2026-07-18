@@ -5,7 +5,6 @@ package gr.techpro.absence.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import gr.techpro.absence.entity.SessionEntity;
-import gr.techpro.absence.entity.StudentEntity;
 import gr.techpro.absence.enums.SessionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,13 +1,11 @@
 package gr.techpro.absence.dto.response;
 
 import gr.techpro.absence.entity.InstructorEntity;
-import gr.techpro.absence.entity.StudentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter

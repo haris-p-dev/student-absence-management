@@ -17,9 +17,9 @@ public class EnrollmentValidator {
     private final EnrollmentRepository enrollmentRepo;
     private final SessionRepository sessionRepo;
 
-    /**
-     * Validates if the student has any schedule conflicts before enrolling in a new module.
-     */
+
+    //  Validates if the student has any schedule conflicts before enrolling in a new module.
+
     public void validateNoScheduleConflict(Long studentId, Long newModuleId) {
 
         List<SessionEntity> newModuleSessions = sessionRepo.findByModuleId(newModuleId);
