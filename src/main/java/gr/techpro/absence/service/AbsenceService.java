@@ -6,7 +6,7 @@ import gr.techpro.absence.entity.AbsenceEntity;
 import gr.techpro.absence.entity.EnrollmentEntity;
 import gr.techpro.absence.entity.SessionEntity;
 import gr.techpro.absence.exception.ResourceNotFoundException;
-import gr.techpro.absence.extra_validation.AbsenceValidator;
+import gr.techpro.absence.extra_validators.AbsenceValidator;
 import gr.techpro.absence.repository.AbsenceRepository;
 import gr.techpro.absence.repository.EnrollmentRepository;
 import gr.techpro.absence.repository.SessionRepository;

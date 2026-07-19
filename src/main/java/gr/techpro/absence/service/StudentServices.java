@@ -70,7 +70,7 @@ public class StudentServices {
         StudentEntity studentEntity = studentRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Student with id " + id + " cannot be found."));
 
-//  id does not exist by mail does exist.
+    //  id does not exist by mail does exist.
         if(studentRepo.existsByIdNotAndEmail(id,request.getEmail())){
             throw new DuplicateResourceException("This email is belongs to another student");
         }
@@ -84,6 +84,14 @@ public class StudentServices {
         studentEntity.setLastName(request.getLastName());
         studentEntity.setEmail(request.getEmail());
         studentEntity.setStudentNumber(request.getStudentNumber());
+
+//        StudentEntity saved = StudentEntity.builder()
+//                .firstName(request.getFirstName())
+//                .lastName(request.getLastName())
+//                .email(request.getEmail())
+//                .studentNumber(request.getStudentNumber())
+//                .build();
+
 
         StudentEntity updated = studentRepo.save(studentEntity);
 
