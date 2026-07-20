@@ -1,18 +1,23 @@
-version: '3.9'
+version: "3.9"
 
 services:
+
   db:
     image: postgres:15-alpine
-    container_name: absence_db
+
     environment:
-      POSTGRES_DB: absence_db
+      POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
     ports:
       - "5432:5432"
 
-    volumes:  ..............
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./db/init/02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
 
 
     healthcheck:
@@ -21,26 +26,28 @@ services:
       timeout: 5s
       retries: 5
 
-    app:
-      build: .
-      container_name: absence_app
+  app:
+    build: .
 
-      environment:
-        DB_HOST: db
-        DB_PORT: 5432
-        DB_NAME : appDB
-        DB_USER : ${DB_USER}
-        DB_PASSWORD: ${DB_PASSWORD}
+    container_name: absence_app
 
-      depends_on:
-       db:
-          condition: service_healthy
+    depends_on:
+      db:
+        condition: service_healthy
 
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT}
+      ABSENCE_THRESHOLD: ${ABSENCE_THRESHOLD}
 
-      ports:
-        - "8080:8080"
+    ports:
+      - "8080:8080"
 
-      restart: on-failure
+    restart: no
 
-      volumes:
-        postgres_data:x
+volumes:
+  postgres_data:
