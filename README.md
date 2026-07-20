@@ -136,7 +136,7 @@ The default values can be found in:
 
 ## How the Request-Response Lifecycle works in the app
 
-![Architecture Diagram](uml-diagram/architecture_diagram.png)
+![Architecture Diagram](uml-diagrams/architecture_diagram.png)
 
 ## Documentation
 
