@@ -20,8 +20,8 @@ public class OpenApiConfig {
                                 "justification workflow, and reporting.")
                         .version("1.0.0")
                         .contact(new Contact()
-                                .name("TechPro")
-                                .email("info@techpro.gr"))
+                                .name("Haris Patsouras")
+                                .email("haris.p.dev@gmail.com"))
                         .license(new License()
                                 .name("Academic Use Only")));
     }
