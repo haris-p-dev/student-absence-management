@@ -85,13 +85,6 @@ public class StudentServices {
         studentEntity.setEmail(request.getEmail());
         studentEntity.setStudentNumber(request.getStudentNumber());
 
-//        StudentEntity saved = StudentEntity.builder()
-//                .firstName(request.getFirstName())
-//                .lastName(request.getLastName())
-//                .email(request.getEmail())
-//                .studentNumber(request.getStudentNumber())
-//                .build();
-
 
         StudentEntity updated = studentRepo.save(studentEntity);
 

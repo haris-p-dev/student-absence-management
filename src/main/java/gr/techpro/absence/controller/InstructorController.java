@@ -19,27 +19,27 @@ public class InstructorController {
     private final InstructorServices instructorServices;
 
 
-    @PostMapping("/instructor")
+    @PostMapping("/instructors")
     public InstructorResponseDTO createInstructor(@Valid @RequestBody InstructorRequestDTO request) {
         return instructorServices.createInstructor(request);
     }
 
-    @GetMapping("/instructor/{id}")
+    @GetMapping("/instructors/{id}")
     public InstructorResponseDTO getById(@PathVariable Long id) {
         return instructorServices.getInstructorById(id);
     }
 
-    @GetMapping("/instructor")
+    @GetMapping("/instructors")
     public List<InstructorResponseDTO> getAllInstructors() {
         return instructorServices.getAllInstructors();
     }
 
-    @DeleteMapping("/instructor/{id}")
+    @DeleteMapping("/instructors/{id}")
     public void deleteInstructor(@PathVariable Long id) {
         instructorServices.deleteInstructor(id);
     }
 
-    @PutMapping("/instructor/{id}")
+    @PutMapping("/instructors/{id}")
     public InstructorResponseDTO updateInstructor(@PathVariable Long id, @Valid @RequestBody InstructorRequestDTO request) {
         return instructorServices.updateInstructor(id, request);
     }

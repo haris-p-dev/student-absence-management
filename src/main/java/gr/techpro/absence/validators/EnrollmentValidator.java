@@ -1,4 +1,4 @@
-package gr.techpro.absence.extra_validators;
+package gr.techpro.absence.validators;
 
 import gr.techpro.absence.entity.EnrollmentEntity;
 import gr.techpro.absence.entity.SessionEntity;

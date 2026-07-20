@@ -1,4 +1,4 @@
-package gr.techpro.absence.extra_validators;
+package gr.techpro.absence.validators;
 
 import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.ModuleRepository;

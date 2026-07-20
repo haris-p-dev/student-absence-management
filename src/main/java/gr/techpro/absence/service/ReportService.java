@@ -4,7 +4,7 @@ import gr.techpro.absence.dto.response.AtRiskStudentResponseDTO;
 import gr.techpro.absence.dto.response.ModuleStatsResponseDTO;
 import gr.techpro.absence.dto.response.SummaryResponseDTO;
 import gr.techpro.absence.exception.ResourceNotFoundException;
-import gr.techpro.absence.extra_validators.ReportValidator;
+import gr.techpro.absence.validators.ReportValidator;
 import gr.techpro.absence.repository.EnrollmentRepository;
 import gr.techpro.absence.repository.ReportRepository;
 import jakarta.transaction.Transactional;
@@ -67,9 +67,9 @@ public class ReportService {
                 .toList();
     }
 
-    /**
-     * Returns total statistics for a specific module.
-     */
+
+    // Returns total statistics for a specific module.
+
     public ModuleStatsResponseDTO getModuleStats(Long moduleId) {
         validator.validateModuleExists(moduleId);
 

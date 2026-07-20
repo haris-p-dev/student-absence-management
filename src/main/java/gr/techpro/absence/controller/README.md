@@ -1,33 +1,28 @@
-# Controllers Package
+# Controllers
 
-This package contains all REST controllers responsible for handling HTTP requests and responses.
+This package contains the REST controllers of the application.
 
-The controllers act as the entry point of the application and follow the standard Spring Boot layered architecture:
+Controllers are responsible for handling HTTP requests, validating input DTOs and delegating operations to the service layer.
 
-Client
+The application follows the layered architecture:
+
+
+
+![UML Diagram](docs/images/architecture_diagram.png)
+Controller
 |
 v
-Controller Layer
+Service
 |
 v
-Service Layer
-|
-v
-Repository Layer
+Repository
 |
 v
 Database
 
 
-Controllers are responsible for:
-
-- Receiving HTTP requests.
-- Validating incoming DTOs using Bean Validation.
-- Mapping request data to service calls.
-- Returning appropriate HTTP responses.
-- Delegating business logic to the service layer.
-
-Business rules and database operations are not handled inside controllers. These responsibilities belong to the Service and Repository layers respectively.
+Controllers should contain only request handling logic.  
+Business logic is implemented in the service layer.
 
 ---
 
@@ -35,36 +30,38 @@ Business rules and database operations are not handled inside controllers. These
 
 ### StudentController
 
-Handles all operations related to students.
+Handles student related operations.
 
 Responsibilities:
 
-- Create a new student.
-- Retrieve student information.
-- Update student data.
-- Delete students.
+- Create student  `POST /api/students`
 
-Main resource:
-/api/students
+- Retrieve all students  `GET /api/students`
 
+- Retrieve student by id  `GET /api/students/{id}`
+
+- Update student information  `PUT /api/students/{id}`
+
+- Delete student  `DELETE /api/students/{id}`
 
 ---
 
 ### ModuleController
 
-Handles operations related to academic modules.
+Handles academic module operations.
 
 Responsibilities:
 
-- Create modules.
-- Retrieve module information.
-- Update module details.
-- Delete modules.
-- Manage module sessions.
+- Create module  `POST /api/modules`
 
-Main resource:
+- Retrieve all modules  `GET /api/modules`
 
-/api/modules
+- Retrieve module by id  `GET /api/modules/{id}`
+
+- Update module information `PUT /api/modules/{id}`
+
+- Delete module   `DELETE /api/modules/{id}`
+
 
 ---
 
@@ -74,20 +71,11 @@ Handles student enrollment operations.
 
 Responsibilities:
 
-- Enroll students into modules.
-- Retrieve enrollments.
-- Delete enrollments.
+- Create enrollment  `POST /api/enrollments`
 
-Business validations handled by the service layer include:
+- Retrieve enrollment by id  `GET /api/enrollments/{id}`
 
-- Preventing duplicate active enrollments.
-- Managing enrollment status.
-
-Main resource:
-
-
-/api/enrollments
-
+- Delete enrollment `DELETE /api/enrollments/{id}`
 
 ---
 
@@ -97,17 +85,11 @@ Handles module session management.
 
 Responsibilities:
 
-- Create sessions for modules.
-- Retrieve sessions.
-- Filter sessions based on requested criteria.
+- Create session `POST /api/modules/{moduleId}/sessions`
 
-A session always belongs to exactly one module.
+- Retrieve module sessions  `GET /api/modules/{moduleId}/sessions`
 
-Main resource:
-
-
-/api/modules/{moduleId}/sessions
-
+- Filter sessions  `GET /api/modules/{moduleId}/sessions?`
 
 ---
 
@@ -117,21 +99,17 @@ Handles student absence records.
 
 Responsibilities:
 
-- Record absences.
-- Retrieve absence information.
-- Update absence status.
-- Delete absence records.
-
-Business validations handled by the service layer include:
-
-- Student must be actively enrolled in the module.
-- Duplicate absence records are not allowed.
-- Enrollment and session must belong to the same module.
-
-Main resource:
+- Create absence record   `POST /api/absences`
 
 
-/api/absences
+- Update absence information  `PATCH /absences/{id}/justify`
+
+
+The endpoint is fully dynamic: if no parameters are passed, it returns all registered absences, while allowing 
+filtering based on the student, the course or the specific lecture (session).
+
+- Retrieve absence records  `GET /api/absences/{id}`
+- Retrieve absence records  `GET /api/absences`
 
 
 ---
@@ -142,16 +120,15 @@ Handles instructor management.
 
 Responsibilities:
 
-- Create instructors.
-- Retrieve instructor information.
-- Update instructor data.
-- Delete instructors.
+- Create instructor  `POST /api/instructors`
 
-Main resource:
+- Retrieve all instructors  `GET /api/instructors`
 
+- Retrieve instructor by id   `GET /api/instructors/{id}`
 
-/api/instructors
+- Update instructor information  `PUT /api/instructors/{id}`
 
+- Delete instructor  `DELETE /api/instructors/{id}`
 
 ---
 
@@ -161,90 +138,45 @@ Handles instructor assignments to modules.
 
 Responsibilities:
 
-- Assign instructors to modules.
-- Manage instructor roles.
+- Assign instructor to module   `POST /api/modules/{moduleId}/instructors/{instructorId}`
 
-Supported roles:
+- Retrieve all instructors of a module  `GET api/modules/{moduleId}/instructors`
 
+- Remove instructor from module  `DELETE /api/modules/{moduleId}/instructors/{instructorId}`
 
-LEAD
-ASSISTANT
-
-
-Main resource:
-
-
-/api/modules/{moduleId}/instructors
+- Retrieve all modules an instructor teach  `GET api/modules/{moduleId}/instructors`
 
 
 ---
 
 ### ReportController
 
-Handles reporting and statistics endpoints.
+Handles application reporting endpoints.
 
 Responsibilities:
 
-- Generate student attendance reports.
-- Retrieve module statistics.
-- Identify students at risk based on absence thresholds.
+- Student attendance summary  `GET /api/students/{id}/modules/{moduleId}"`
 
-Main resource:
+- Module statistics  `GET /api/modules/{id}/stats`
 
-
-/api/reports
-
-
-Available reports include:
-
-- Student module attendance summary.
-- Module statistics.
-- At-risk students.
+The user can set a threshold. If he doesn't the default is set through application.properties
+- At-risk students report  `GET /api/modules/{id}/at-risk`
 
 ---
 
-## Validation and Exception Handling
+## Validation & Error Handling
 
-Controllers use:
-
-- `@Valid` for DTO validation.
-- `@RequestBody` for incoming request payloads.
-- `@PathVariable` for resource identifiers.
-- `@RequestParam` for optional query parameters.
+Request validation is performed using Bean Validation annotations.
 
 Example:
 
-` java `
-@PostMapping
-public ResponseEntity<StudentResponseDTO> createStudent(
-        @Valid @RequestBody StudentRequestDTO request
-) {
-    return ResponseEntity.ok(studentService.createStudent(request));
-}
+```java
+@Valid @RequestBody StudentRequestDTO request
 
-Exceptions are handled globally through:
+Global exception handling is managed using:
 
 @ControllerAdvice
 
-The controllers do not catch business exceptions manually.
+Controllers do not handle exceptions manually.
 
-The global exception handler converts exceptions into structured error responses containing:
-
-Timestamp
-HTTP status
-Error message
-Request path
-Design Principles
-
-The controller layer follows these principles:
-
-Keep controllers lightweight.
-Avoid business logic inside controllers.
-Use DTOs instead of exposing entities directly.
-Delegate operations to services.
-Return meaningful HTTP status codes.
-Controller = HTTP communication
-Service    = Business logic
-Repository = Data access
-Entity     = Database representation
-DTO        = API data transfer
+Exceptions are converted into structured error responses by the global exception handler.
