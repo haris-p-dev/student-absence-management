@@ -11,24 +11,22 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AbsenceValidator {
-    private final AbsenceRepository absenceRepo;
 
+
+    private final AbsenceRepository absenceRepo;
 
     // Runs all business validations before recording attendance.
 
     public void validate(EnrollmentEntity enrollment,SessionEntity session ) {
 
         validateEnrollmentIsActive(enrollment);
-
         validateEnrollmentBelongsToSessionModule(enrollment,session);
         validateDuplicateAbsence(enrollment,session);
     }
 
     // Checks if the enrollment is active.
 
-    private void validateEnrollmentIsActive(
-            EnrollmentEntity enrollment
-    ) {
+    private void validateEnrollmentIsActive(EnrollmentEntity enrollment) {
 
         if (enrollment.getStatus() != EnrollmentStatus.ACTIVE) {
             throw new ValidationException(

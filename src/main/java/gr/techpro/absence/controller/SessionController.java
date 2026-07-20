@@ -27,10 +27,9 @@ public class SessionController {
 
 
     @GetMapping("/modules/{moduleId}/sessions")
-    public List<SessionResponseDTO> getSessions(
-            @PathVariable Long moduleId,
-            @RequestParam(required = false) LocalDate from,
-            @RequestParam(required = false) LocalDate to) {
+    public List<SessionResponseDTO> getSessions( @PathVariable Long moduleId,
+                                                 @RequestParam(required = false) LocalDate from,
+                                                 @RequestParam(required = false) LocalDate to) {
 
         if (from != null && to != null) {
             return sessionService.getSessionsForModuleBetweenDates(moduleId, from, to);

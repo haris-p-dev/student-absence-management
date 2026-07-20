@@ -29,15 +29,15 @@ public class ReportController {
     // If no threshold is provided, the default value from application.properties is used.
 
     @GetMapping("/modules/{id}/at-risk")
-    public List<AtRiskStudentResponseDTO> getAtRiskStudents(@PathVariable Long id,
+    public List<AtRiskStudentResponseDTO> getAtRiskStudents(@PathVariable Long moduleId,
                                                             @RequestParam(required = false) Double threshold) {
-        return reportService.getAtRiskStudents(id, threshold);
+        return reportService.getAtRiskStudents(moduleId, threshold);
     }
 
 
     // Returns overall absence statistics for a specific module.
     @GetMapping("/modules/{id}/stats")
-    public ModuleStatsResponseDTO getModuleStatistics(@PathVariable Long id) {
-        return reportService.getModuleStats(id);
+    public ModuleStatsResponseDTO getModuleStatistics(@PathVariable Long moduleId) {
+        return reportService.getModuleStats(moduleId);
     }
 }

@@ -25,15 +25,15 @@ public class AbsenceController {
 
 
     @PatchMapping("/absences/{id}/justify")
-    public AbsenceResponseDTO justifyAbsence(@PathVariable Long id, @Valid @RequestParam AbsenceRequestDTO request){
-        return absenceService.justifyAbsence(id, request);
+    public AbsenceResponseDTO justifyAbsence(@PathVariable Long absenceId, @Valid @RequestParam AbsenceRequestDTO request){
+        return absenceService.justifyAbsence(absenceId, request);
     }
 
 
     //Retrieves absences from the system.
     @GetMapping("/absences/{id}")
-    public AbsenceResponseDTO getAbsence(@PathVariable Long id){
-        return   absenceService.getAbsences(id);
+    public AbsenceResponseDTO getAbsence(@PathVariable Long absencesId){
+        return   absenceService.getAbsences(absencesId);
     }
 
 

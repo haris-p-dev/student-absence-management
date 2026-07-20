@@ -60,20 +60,20 @@ public class AbsenceService {
 
     }
 
-    public AbsenceResponseDTO getAbsences(Long id){
+    public AbsenceResponseDTO getAbsences(Long absencesId){
 
 
-        AbsenceEntity absence = absenceRepo.findById(id)
+        AbsenceEntity absence = absenceRepo.findById(absencesId)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Absence not found with id: " + id ));
+                        new ResourceNotFoundException("Absence not found with id: " + absencesId ));
 
         return AbsenceResponseDTO.from(absence);    }
 
    //Changes the state of an absence (justify / unjustify)
 
-    public AbsenceResponseDTO justifyAbsence(Long id,AbsenceRequestDTO request) {
+    public AbsenceResponseDTO justifyAbsence(Long absenceId,AbsenceRequestDTO request) {
 
-        AbsenceEntity absence = absenceRepo.findById(id)
+        AbsenceEntity absence = absenceRepo.findById(absenceId)
                 .orElseThrow(() ->new ResourceNotFoundException(
                         "Absence not found" ));
 

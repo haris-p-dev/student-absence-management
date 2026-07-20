@@ -25,7 +25,7 @@ public class EnrollmentValidator {
         List<SessionEntity> newModuleSessions = sessionRepo.findByModuleId(newModuleId);
         List<EnrollmentEntity> existingEnrollments = enrollmentRepo.findByStudentId(studentId);
 
-        // 3. Συγκρίνουμε κάθε νέα συνεδρία με όλες τις υπάρχουσες συνεδρίες των άλλων μαθημάτων
+        // 3.compare each new session with all existing sessions of the other courses
         for (EnrollmentEntity existingEnrollment : existingEnrollments) {
             List<SessionEntity> existingSessions = sessionRepo.findByModuleId(
                     existingEnrollment.getModule().getId()

@@ -10,6 +10,7 @@ import gr.techpro.absence.exception.ResourceNotFoundException;
 import gr.techpro.absence.repository.EnrollmentRepository;
 import gr.techpro.absence.repository.ModuleRepository;
 import gr.techpro.absence.repository.StudentRepository;
+import gr.techpro.absence.validators.EnrollmentValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class EnrollmentService {
     private final StudentRepository studentRepo;
     private final ModuleRepository moduleRepo;
 
+    private final EnrollmentValidator validator;
 
 
     public EnrollmentResponseDTO createEnrollment(EnrollmentRequestDTO request){
@@ -44,6 +46,8 @@ public class EnrollmentService {
             throw new DuplicateResourceException(
                     "Student is already enrolled in this module.");
         }
+
+        validator.validateNoScheduleConflict(student.getId(),module.getId());
 
         EnrollmentEntity enrollment = new EnrollmentEntity();
 
