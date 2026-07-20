@@ -74,7 +74,7 @@ No local PostgreSQL or Java installation is required.
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/haris-p-dev/student-absence-management
 cd Student-Absence-Management-System
 ```
 
