@@ -1,5 +1,6 @@
 package gr.techpro.absence.service;
 
+import gr.techpro.absence.dto.request.AbsenceJustificationRequestDTO;
 import gr.techpro.absence.dto.request.AbsenceRequestDTO;
 import gr.techpro.absence.dto.response.AbsenceResponseDTO;
 import gr.techpro.absence.entity.AbsenceEntity;
@@ -71,22 +72,17 @@ public class AbsenceService {
 
    //Changes the state of an absence (justify / unjustify)
 
-    public AbsenceResponseDTO justifyAbsence(Long absenceId,AbsenceRequestDTO request) {
-
+    public AbsenceResponseDTO justifyAbsence(Long absenceId, AbsenceJustificationRequestDTO request) {
         AbsenceEntity absence = absenceRepo.findById(absenceId)
-                .orElseThrow(() ->new ResourceNotFoundException(
-                        "Absence not found" ));
+                .orElseThrow(() -> new ResourceNotFoundException("Absence with id " + absenceId + " not found"));
 
         absence.setJustified(request.isJustified());
         absence.setJustification(request.getJustification());
-
         absence.setUpdatedAt(LocalDateTime.now());
 
-        AbsenceEntity updatedAbsence =absenceRepo.save(absence);
-
+        AbsenceEntity updatedAbsence = absenceRepo.save(absence);
         return AbsenceResponseDTO.from(updatedAbsence);
     }
-
 
     public List<AbsenceResponseDTO> getAbsences(Long studentId,Long moduleId,Long sessionId) {
 

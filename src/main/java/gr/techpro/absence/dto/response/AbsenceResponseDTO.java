@@ -33,7 +33,7 @@ public class AbsenceResponseDTO {
     private LocalDateTime updatedAt;
 
 
-public static AbsenceResponseDTO  from(AbsenceEntity absence) {
+    public static AbsenceResponseDTO  from(AbsenceEntity absence) {
 
     return AbsenceResponseDTO.builder()
             .id(absence.getId())

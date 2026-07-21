@@ -1,14 +1,20 @@
 # Entities
 
-This package contains the JPA entity classes that represent the application's database model.
+This package contains the JPA entity classes that represent the database tables of the application.
 
-Entities define how Java objects are mapped to database tables and how those tables are related to each other. They form the persistence layer of the application and are managed by Hibernate through Spring Data JPA.
+Entities are responsible for:
 
-Entities are not exposed directly to API clients. Instead, they are converted to and from DTOs by the service layer.
+- Mapping Java objects to database tables.
+- Defining relationships between database entities.
+- Representing the persistence layer of the application.
+- Allowing Hibernate to manage database operations through JPA.
+
+Entities are not exposed directly through the API.  
+Data exchange between the client and the application is handled using DTOs.
 
 The application follows the flow:
 
-```text
+```
 Request DTO
      |
      v
@@ -33,60 +39,62 @@ Database
 
 ### StudentEntity
 
-Represents the students table.
+Represents the student table.
 
 ---
 
 ### ModuleEntity
 
-Represents the modules table.
+Represents the module table.
 
 ---
 
 ### EnrollmentEntity
 
-Represents the relationship between students and modules.
+Represents the enrollment table.
 
 ---
 
 ### SessionEntity
 
-Represents the sessions scheduled for each module.
+Represents the session table.
 
 ---
 
 ### AbsenceEntity
 
-Represents student attendance records for module sessions.
+Represents the absence table.
 
 ---
 
 ### InstructorEntity
 
-Represents instructors within the system.
+Represents the instructor table.
 
 ---
 
 ### ModuleInstructorEntity
 
-Represents the relationship between instructors and modules.
+Represents the module-instructor assignment table.
 
 ---
 
-## Technologies & Annotations Used
+## JPA Annotations Used
 
-### JPA Entity Mapping
+The entities use the following JPA annotations for object-relational mapping.
+
+### Entity Mapping
 
 ```java
 @Entity
 @Table
 ```
 
-Defines a class as a JPA entity and maps it to a database table.
+Marks a class as a JPA entity and maps it to a database table.
 
 ---
 
-### Primary Keys
+### Primary Key
 
 ```java
 @Id
@@ -97,18 +105,27 @@ Defines the primary key and its generation strategy.
 
 ---
 
-### Relationship Mapping
+### Relationships
 
 ```java
 @OneToMany
 @ManyToOne
 @ManyToMany
 @OneToOne
+```
+
+Defines associations between entities.
+
+---
+
+### Relationship Configuration
+
+```java
 @JoinColumn
 @JoinTable
 ```
 
-Defines relationships between entities and their corresponding foreign keys.
+Configures foreign keys and join tables.
 
 ---
 
@@ -128,7 +145,21 @@ Stores enum values as readable strings in the database.
 @Column
 ```
 
-Used to configure database column properties such as nullability, uniqueness and column definitions.
+Configures column properties such as nullability, uniqueness and length.
+
+---
+
+### Lombok
+
+Used to reduce boilerplate code.
+
+```java
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+```
 
 ---
 
@@ -139,18 +170,4 @@ Used to configure database column properties such as nullability, uniqueness and
 @PreUpdate
 ```
 
-Automatically executes logic before an entity is inserted or updated.
-
----
-
-### Lombok
-
-```java
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-```
-
-Reduces boilerplate code by generating common methods automatically.
+Used to automatically update entity state before persisting or updating records.

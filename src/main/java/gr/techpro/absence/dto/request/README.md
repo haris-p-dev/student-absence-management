@@ -45,6 +45,11 @@ Validation applied:
 - Email format validation
 - String length validation
 
+### AbsenceJustificationRequestDTO
+
+Used explicitly to make the endpoint "/absences/{absenceId}/justify" more readable for the user   
+
+
 ---
 
 ### ModuleRequestDTO

@@ -1,5 +1,6 @@
 package gr.techpro.absence.controller;
 
+import gr.techpro.absence.dto.request.AbsenceJustificationRequestDTO;
 import gr.techpro.absence.dto.request.AbsenceRequestDTO;
 import gr.techpro.absence.dto.response.AbsenceResponseDTO;
 import gr.techpro.absence.service.AbsenceService;
@@ -24,8 +25,8 @@ public class AbsenceController {
     }
 
 
-    @PatchMapping("/absences/{id}/justify")
-    public AbsenceResponseDTO justifyAbsence( @PathVariable Long absenceId, @Valid @RequestParam AbsenceRequestDTO request){
+    @PatchMapping("/absences/{absenceId}/justify")
+    public AbsenceResponseDTO justifyAbsence( @PathVariable Long absenceId, @Valid @RequestBody AbsenceJustificationRequestDTO request){
         return absenceService.justifyAbsence(absenceId, request);
     }
 
