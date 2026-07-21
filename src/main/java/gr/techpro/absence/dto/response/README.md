@@ -1,137 +1,152 @@
-# Entities
+# Response DTOs
 
-This package contains the JPA entity classes that represent the database tables of the application.
+This package contains the Data Transfer Objects (DTOs) used to return data from the application to API clients.
 
-Entities are responsible for:
+Unlike the Request DTOs, the number of Response DTOs is greater because the application returns different representations of data depending on the endpoint.
 
-- Mapping Java objects to database tables.
-- Defining relationships between database entities.
-- Representing the persistence layer of the application.
-- Allowing Hibernate to manage database operations through JPA.
+While a Request DTO usually represents the data required for a client request (e.g., create or update operations), a Response DTO is designed around what each endpoint needs to return. As a result, specialized DTOs are used for reports, statistics, summaries and other custom responses.
 
-Entities are not exposed directly through the API.  
-Data exchange between the client and the application is handled using DTOs.
+Response DTOs also prevent database entities from being exposed directly to API consumers.
 
 The application follows the flow:
 
-
-Request DTO
-|
-v
-Controller
-|
-v
-Service
-|
-v
-Entity
-|
-v
-Repository
-|
-v
+```text
 Database
-
-
----
-
-## Available Entities
-
-### StudentEntity
-
-Represents the student table in the database.
-
----
-
-### ModuleEntity
-
-Represents the module table in the database.
-
----
-
-### EnrollmentEntity
-
-Represents the relationship between students and modules.
+    |
+    v
+Entity
+    |
+    v
+Service
+    |
+    v
+Response DTO
+    |
+    v
+Controller
+    |
+    v
+Client
+```
 
 ---
 
-### SessionEntity
+## Available Response DTOs
 
-Represents module sessions.
+### StudentResponseDTO
 
----
-
-### AbsenceEntity
-
-Represents student absence records.
+Represents student information returned by student endpoints.
 
 ---
 
-### InstructorEntity
+### ModuleResponseDTO
 
-Represents instructor data.
-
----
-
-### ModuleInstructorEntity
-
-Represents the relationship between instructors and modules.
+Represents module information returned by module endpoints.
 
 ---
 
-## JPA Annotations Used
+### EnrollmentResponseDTO
 
-The entities use JPA annotations for object-relational mapping.
+Represents enrollment information returned by enrollment endpoints.
 
-### Entity Mapping
+---
+
+### SessionResponseDTO
+
+Represents session information returned by session endpoints.
+
+---
+
+### AbsenceResponseDTO
+
+Represents absence information returned by absence endpoints.
+
+---
+
+### InstructorResponseDTO
+
+Represents instructor information returned by instructor endpoints.
+
+---
+
+### ModuleInstructorResponseDTO
+
+Represents instructor assignments to modules.
+
+---
+
+### SummaryResponseDTO
+
+Represents attendance summary data used by reporting endpoints.
+
+---
+
+### AttendanceStatisticsDTO
+
+Represents attendance statistics returned by reporting endpoints.
+
+---
+
+### ModuleStatsResponseDTO
+
+Represents module statistics and aggregated information.
+
+---
+
+### AtRiskStudentResponseDTO
+
+Represents students identified as being at risk based on attendance records.
+
+---
+
+### ErrorResponseDTO
+
+Represents the standardized error response returned by the global exception handler.
+
+---
+
+## Mapping
+
+Most Response DTOs provide a static `from()` method.
+
+The `from()` method is responsible for converting an Entity into its corresponding Response DTO. This centralizes the mapping logic inside the DTO itself, keeping the service layer cleaner and ensuring consistent object conversion throughout the application.
+
+Typical mapping flow:
+
+```text
+Entity
+   |
+   v
+ResponseDTO.from(entity)
+   |
+   v
+Response DTO
+```
+
+Some reporting DTOs (such as statistics and summary DTOs) are populated directly from JPQL query results instead of using the `from()` method, since they represent aggregated data rather than a single entity.
+
+---
+
+## Technologies & Annotations Used
+
+### Lombok
 
 ```java
-@Entity
-@Table
-
-Used to define a class as a database entity and map it to a database table.
-
-Primary Key
-@Id
-@GeneratedValue
-
-Used for defining entity identifiers and automatic ID generation.
-
-Relationships
-
-Used for defining associations between entities:
-
-@OneToMany
-@ManyToOne
-@ManyToMany
-@OneToOne
-Relationship Configuration
-@JoinColumn
-@JoinTable
-
-Used to configure foreign keys and join tables.
-
-Enum Mapping
-@Enumerated(EnumType.STRING)
-
-Used to store enum values as readable strings in the database.
-
-Constraints
-@Column
-
-Used for column configuration such as:
-
-nullable constraints
-uniqueness
-column definitions
-Lombok
-
-Used to reduce boilerplate code.
-
-Common annotations:
-
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+```
+
+Generates common boilerplate code automatically.
+
+---
+
+### Jackson
+
+```java
+@JsonFormat
+```
+
+Used to control the serialization of date and time values in JSON responses.

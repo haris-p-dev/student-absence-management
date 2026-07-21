@@ -19,20 +19,20 @@ public class AbsenceController {
     private final AbsenceService absenceService;
 
     @PostMapping("/absences")
-    public AbsenceResponseDTO recordAttendance(AbsenceRequestDTO request){
+    public AbsenceResponseDTO recordAttendance(@Valid AbsenceRequestDTO request){
         return absenceService.recordAttendance(request);
     }
 
 
     @PatchMapping("/absences/{id}/justify")
-    public AbsenceResponseDTO justifyAbsence(@PathVariable Long absenceId, @Valid @RequestParam AbsenceRequestDTO request){
+    public AbsenceResponseDTO justifyAbsence( @PathVariable Long absenceId, @Valid @RequestParam AbsenceRequestDTO request){
         return absenceService.justifyAbsence(absenceId, request);
     }
 
 
     //Retrieves absences from the system.
     @GetMapping("/absences/{id}")
-    public AbsenceResponseDTO getAbsence(@PathVariable Long absencesId){
+    public AbsenceResponseDTO getAbsence( @PathVariable Long absencesId){
         return   absenceService.getAbsences(absencesId);
     }
 
@@ -42,8 +42,8 @@ public class AbsenceController {
 
     @GetMapping("/absences")
     public ResponseEntity<List<AbsenceResponseDTO>> getAbsences(  @RequestParam(required = false) Long studentId,
-                                                                  @RequestParam(required = false) Long moduleId,
-                                                                  @RequestParam(required = false) Long sessionId) {
+                                                                   @RequestParam(required = false) Long moduleId,
+                                                                   @RequestParam(required = false) Long sessionId) {
         List<AbsenceResponseDTO> absences = absenceService.getAbsences(studentId, moduleId, sessionId);
         return ResponseEntity.ok(absences);
     }
