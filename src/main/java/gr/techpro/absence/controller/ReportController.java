@@ -19,16 +19,16 @@ public class ReportController {
 
     //  Returns an absence summary for a specific student in a specific module.
 
-    @GetMapping("/students/{id}/modules/{moduleId}")
-    public SummaryResponseDTO getStudentModuleSummary(@PathVariable Long id, @PathVariable Long moduleId) {
-        return reportService.getStudentModuleSummary(id, moduleId);
+    @GetMapping("/students/{studentId}/modules/{moduleId}")
+    public SummaryResponseDTO getStudentModuleSummary(@PathVariable Long studentId, @PathVariable Long moduleId) {
+        return reportService.getStudentModuleSummary(studentId, moduleId);
     }
 
 
     //  Returns all students whose absence percentage exceeds the configured threshold.
     // If no threshold is provided, the default value from application.properties is used.
 
-    @GetMapping("/modules/{id}/at-risk")
+    @GetMapping("/modules/{moduleId}/at-risk")
     public List<AtRiskStudentResponseDTO> getAtRiskStudents(@PathVariable Long moduleId,
                                                             @RequestParam(required = false) Double threshold) {
         return reportService.getAtRiskStudents(moduleId, threshold);
@@ -36,7 +36,7 @@ public class ReportController {
 
 
     // Returns overall absence statistics for a specific module.
-    @GetMapping("/modules/{id}/stats")
+    @GetMapping("/modules/{moduleId}/stats")
     public ModuleStatsResponseDTO getModuleStatistics(@PathVariable Long moduleId) {
         return reportService.getModuleStats(moduleId);
     }

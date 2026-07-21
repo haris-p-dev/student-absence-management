@@ -21,14 +21,14 @@ public class EnrollmentController {
     }
 
 
-    @GetMapping("/enrollments/{id}")
-    public EnrollmentResponseDTO getEnrollment(@PathVariable Long id){
+    @GetMapping("/enrollments/{enrollmentId}")
+    public EnrollmentResponseDTO getEnrollment(@PathVariable Long enrollmentId){
 
-        return  enrollmentService.getEnrollmentById(id);
+        return  enrollmentService.getEnrollmentById(enrollmentId);
     }
 
-    @DeleteMapping("/enrollments/{id}")
-    public void deleteEnrollment(@PathVariable Long id){
+    @DeleteMapping("/enrollments/{enrollmentId}")
+    public void deleteEnrollment(@PathVariable Long enrollmentId){
 
-        enrollmentService.deleteEnrollment(id);
+        enrollmentService.deleteEnrollment(enrollmentId);
     }}

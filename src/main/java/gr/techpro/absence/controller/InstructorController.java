@@ -24,9 +24,9 @@ public class InstructorController {
         return instructorServices.createInstructor(request);
     }
 
-    @GetMapping("/instructors/{id}")
-    public InstructorResponseDTO getById(@PathVariable Long id) {
-        return instructorServices.getInstructorById(id);
+    @GetMapping("/instructors/{instructorId}")
+    public InstructorResponseDTO getById(@PathVariable Long instructorId) {
+        return instructorServices.getInstructorById(instructorId);
     }
 
     @GetMapping("/instructors")
@@ -34,14 +34,14 @@ public class InstructorController {
         return instructorServices.getAllInstructors();
     }
 
-    @DeleteMapping("/instructors/{id}")
-    public void deleteInstructor(@PathVariable Long id) {
-        instructorServices.deleteInstructor(id);
+    @DeleteMapping("/instructors/{instructorId}")
+    public void deleteInstructor(@PathVariable Long instructorId) {
+        instructorServices.deleteInstructor(instructorId);
     }
 
-    @PutMapping("/instructors/{id}")
-    public InstructorResponseDTO updateInstructor(@PathVariable Long id, @Valid @RequestBody InstructorRequestDTO request) {
-        return instructorServices.updateInstructor(id, request);
+    @PutMapping("/instructors/{instructorId}")
+    public InstructorResponseDTO updateInstructor(@PathVariable Long instructorId, @Valid @RequestBody InstructorRequestDTO request) {
+        return instructorServices.updateInstructor(instructorId, request);
     }
 
 

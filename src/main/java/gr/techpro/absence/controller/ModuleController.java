@@ -31,21 +31,21 @@ public class ModuleController {
     }
 
     //get modules by id
-    @GetMapping("/modules/{id}")
-    public ModuleResponseDTO getModule(@PathVariable Long id){
-        return moduleServices.getModuleById(id);
+    @GetMapping("/modules/{moduleId}")
+    public ModuleResponseDTO getModule(@PathVariable Long moduleId){
+        return moduleServices.getModuleById(moduleId);
     }
 
     //update a module
-    @PutMapping("/modules/{id}")
-    public ModuleResponseDTO update(@PathVariable Long id,@Valid @RequestBody ModuleRequestDTO request){
-        return moduleServices.updateModule(id,request);
+    @PutMapping("/modules/{moduleId}")
+    public ModuleResponseDTO update(@PathVariable Long moduleId,@Valid @RequestBody ModuleRequestDTO request){
+        return moduleServices.updateModule(moduleId,request);
     }
 
     //delete a module
-    @DeleteMapping("/modules/{id}")
-    public void deleteModule(@PathVariable Long id){
-         moduleServices.deleteModule(id);
+    @DeleteMapping("/modules/{moduleId}")
+    public void deleteModule(@PathVariable Long moduleId){
+         moduleServices.deleteModule(moduleId);
     }
 
 
