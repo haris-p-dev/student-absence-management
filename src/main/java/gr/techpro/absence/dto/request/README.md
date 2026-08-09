@@ -14,19 +14,7 @@ They are responsible for:
 The request flow follows:
 
 
-Client Request
-|
-v
-Request DTO
-|
-v
-Controller
-|
-v
-Service Layer
-|
-v
-Entity
+Client Request -> Request DTO -> Controller -> Service Layer -> Entity
 
 
 ---
@@ -127,17 +115,9 @@ Validation applied:
 
 ### ModuleInstructorRequestDTO
 
-Used for assigning instructors to modules.
+Contains instructor related input data.
 
-
-Contains instructor assignment information.
-
-Validation applied:
-
-- Required identifiers validation
-- Enum validation for instructor role
-
----
+--- Important note: This DTO is currently NOT used by the app. It is created only for the completeness of the project.  
 
 ## Annotations Used
 

@@ -17,16 +17,16 @@ import java.time.LocalTime;
 public class SessionRequestDTO {
 
 
-    @NotNull
+    @NotNull(message="Session date cannot be null")
     private LocalDate sessionDate;
 
-    @NotNull
+    @NotNull(message="Start time cannot be null")
     private LocalTime startTime;
 
-    @NotNull
+    @NotNull(message="End time cannot be null")
     private LocalTime endTime;
 
-    @NotNull
+    @NotNull(message="Session type can be either LECTURE, LAB or SEMINAR")
     private SessionType sessionType;
 
     @Size(max=255)

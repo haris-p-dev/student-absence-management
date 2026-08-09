@@ -17,19 +17,19 @@ public class StudentRequestDTO {
 
 
     @Size(max = 100)
-    @NotBlank
+    @NotBlank(message="First name cannot be blank")
     private String firstName;
 
     @Size(max=100)
-    @NotBlank
+    @NotBlank(message="Last name cannot be blank")
     private String lastName;
 
-    @NotBlank
+    @NotBlank(message="Email cannot be blank")
     @Email
     @Size(max=255)
     private String email;
 
-    @NotBlank
+    @NotBlank(message="Student number cannot be null")
     @Size(max=50)
     private String studentNumber;
 

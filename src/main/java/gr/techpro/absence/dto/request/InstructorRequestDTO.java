@@ -12,14 +12,14 @@ import lombok.*;
 @AllArgsConstructor
 public class InstructorRequestDTO {
     @Size(max = 100)
-    @NotBlank
+    @NotBlank (message = "First name cannot be blank")
     private String firstName;
 
     @Size(max=100)
-    @NotBlank
+    @NotBlank (message = "Last name cannot be blank")
     private String lastName;
 
-    @NotBlank
+    @NotBlank (message = "First name cannot be blank")
     @Email
     @Size(max=255)
     private String email;

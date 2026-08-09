@@ -14,13 +14,13 @@ import lombok.*;
 @NoArgsConstructor
 public class EnrollmentRequestDTO {
 
-    @NonNull
+    @NotNull(message="Student id cannot be null")
     private Long studentId;
 
-    @NonNull
+    @NotNull(message="Module id cannot be null")
     private Long moduleId;
 
-    @NotNull
+    @NotNull(message="Enrollment status must be either ACTIVE, DROPPED or COMPLETED ")
     private EnrollmentStatus status;
 
 }

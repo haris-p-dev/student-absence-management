@@ -15,23 +15,23 @@ import lombok.*;
 @AllArgsConstructor
 public class ModuleRequestDTO {
 
-    @NotBlank
+    @NotBlank(message="Code cannot be blank")
     private String code;
 
-    @NotBlank
+    @NotBlank(message="Title cannot be blank")
     @Size(max = 255)
     private String title;
 
     @Positive
-    @NotNull
+    @NotNull(message="Credits cannot be null")
     private Integer credits;
 
-    @NotNull
+    @NotNull(message="Semester must be either FALL, SPRING or SUMMER")
     @Size(max = 20)
     private Semester semester;
 
 
-    @NotNull
+    @NotNull(message="Academic year cannot be null")
     @Positive
     private Integer academicYear;
 

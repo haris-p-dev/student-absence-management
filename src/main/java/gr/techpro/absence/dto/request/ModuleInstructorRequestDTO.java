@@ -11,12 +11,12 @@ import lombok.*;
 @Builder
 public class ModuleInstructorRequestDTO {
 
-    @NotNull
+    @NotNull(message="Module id cannot be null")
     private Long moduleId;
 
-    @NotNull
+    @NotNull(message="Instructor id cannot be null")
     private Long instructorId;
 
-    @NotNull
+    @NotNull(message="Role must be either LEAD or ASSISTANT")
     private InstructorRole role;
 }
